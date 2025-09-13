@@ -9,10 +9,10 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant="ghost"
-      size="sm"
+      variant="outline"
+      
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="text-foreground hover:text-accent hover:bg-accent/10"
+      className="bg-transparent border-border/50 dark:border-zinc-700 hover:border-accent/50 hover:bg-accent/5 dark:hover:bg-accent/20 dark:hover:text-white dark:hover:border-accent/30 cursor-pointer transition-all duration-200 shadow-none"
     >
       <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
       <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

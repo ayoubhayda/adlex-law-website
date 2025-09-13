@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Star } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale"
+import { useLocale } from "@/hooks/use-locale-context"
 
 interface Testimonial {
   id: number

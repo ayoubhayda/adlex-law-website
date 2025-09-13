@@ -3,7 +3,7 @@
 import { ServiceCard } from "@/components/service-card"
 import { Button } from "@/components/ui/button"
 import { Users, Home, Briefcase, Shield, ArrowRight, ArrowLeft } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale"
+import { useLocale } from "@/hooks/use-locale-context"
 import { getTranslation } from "@/lib/i18n"
 import Link from "next/link"
 
@@ -19,6 +19,7 @@ export function ServicesPreview() {
         locale === "ar"
           ? "استشارات شاملة في قضايا الأسرة والزواج والطلاق وحضانة الأطفال"
           : "Comprehensive consultation on family matters, marriage, divorce, and child custody",
+          slug: "family-law",
     },
     {
       icon: Home,
@@ -27,6 +28,7 @@ export function ServicesPreview() {
         locale === "ar"
           ? "خدمات قانونية متكاملة في المعاملات العقارية والاستثمار العقاري"
           : "Complete legal services for real estate transactions and property investment",
+          slug: "real-estate",
     },
     {
       icon: Briefcase,
@@ -35,6 +37,7 @@ export function ServicesPreview() {
         locale === "ar"
           ? "استشارات قانونية للشركات والعقود التجارية والاستثمار"
           : "Legal consultation for companies, commercial contracts, and investment",
+          slug: "business-law",
     },
     {
       icon: Shield,
@@ -43,6 +46,7 @@ export function ServicesPreview() {
         locale === "ar"
           ? "تمثيل قانوني قوي في القضايا الجنائية وحماية الحقوق"
           : "Strong legal representation in criminal cases and rights protection",
+          slug: "criminal-defense",
     },
   ]
 
@@ -67,7 +71,7 @@ export function ServicesPreview() {
                 icon={service.icon}
                 title={service.title}
                 description={service.description}
-                href="/services"
+                href={`/services/${service.slug}`}
               />
             </div>
           ))}
@@ -78,7 +82,7 @@ export function ServicesPreview() {
             <Button
               variant="outline"
               size="lg"
-              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground bg-transparent"
+              className="border-accent text-accent hover:bg-accent hover:text-white dark:hover:bg-accent dark:border-border bg-transparent transition-all cursor-pointer"
             >
               {locale === "ar" ? "عرض جميع الخدمات" : "View All Services"}
               <ArrowIcon className="ml-2 h-5 w-5" />

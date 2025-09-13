@@ -1,10 +1,21 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, ReactNode } from "react"
 import type { Locale } from "@/lib/i18n"
 import { defaultLocale } from "@/lib/i18n"
 
-export function useLocale() {
+interface LocaleContextType {
+  locale: Locale
+  switchLocale: (newLocale: Locale) => void
+}
+
+const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
+
+interface LocaleProviderProps {
+  children: ReactNode
+}
+
+export function LocaleProvider({ children }: LocaleProviderProps) {
   const [locale, setLocale] = useState<Locale>(defaultLocale)
 
   useEffect(() => {
@@ -23,5 +34,17 @@ export function useLocale() {
     document.documentElement.setAttribute("lang", newLocale)
   }
 
-  return { locale, switchLocale }
+  return (
+    <LocaleContext.Provider value={{ locale, switchLocale }}>
+      {children}
+    </LocaleContext.Provider>
+  )
+}
+
+export function useLocale() {
+  const context = useContext(LocaleContext)
+  if (context === undefined) {
+    throw new Error("useLocale must be used within a LocaleProvider")
+  }
+  return context
 }

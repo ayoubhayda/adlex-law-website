@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Calendar, Clock, User, ArrowLeft, ArrowRight, Share2, BookOpen } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale"
+import { useLocale } from "@/hooks/use-locale-context"
 import { getArticleBySlug, getRelatedArticles } from "@/lib/articles"
 import Link from "next/link"
 
@@ -67,17 +67,17 @@ export default function ArticlePage() {
       <Navbar />
       <main>
         {/* Article Header */}
-        <section className="py-12 bg-muted/30">
+        <section className="py-12 bg-background">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <Link href="/blog">
-              <Button variant="ghost" className="mb-6 text-accent hover:text-accent-foreground hover:bg-accent">
+              <Button variant="ghost" className="mb-6 text-accent hover:text-white hover:bg-accent">
                 <BackIcon className="ml-2 h-4 w-4" />
                 {locale === "ar" ? "العودة للمدونة" : "Back to Blog"}
               </Button>
             </Link>
 
             <div className="space-y-6">
-              <Badge className="bg-accent text-accent-foreground">{article.categoryName}</Badge>
+              <Badge className="bg-accent text-white hover:bg-accent">{article.categoryName}</Badge>
 
               <h1 className="text-4xl md:text-5xl font-bold font-serif text-balance leading-tight">
                 {locale === "ar" ? article.titleAr : article.titleEn}
@@ -107,7 +107,7 @@ export default function ArticlePage() {
               </div>
 
               <div className="flex items-center gap-4">
-                <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                <Button size="sm" className="bg-accent text-white hover:bg-accent/90 hover:text-white">
                   <Share2 className="ml-2 h-4 w-4" />
                   {locale === "ar" ? "مشاركة" : "Share"}
                 </Button>
@@ -163,7 +163,7 @@ export default function ArticlePage() {
                           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute top-4 left-4 rtl:left-auto rtl:right-4">
-                          <Badge className="bg-accent text-accent-foreground">{relatedArticle.categoryName}</Badge>
+                          <Badge className="bg-accent text-white">{relatedArticle.categoryName}</Badge>
                         </div>
                       </div>
 
@@ -179,6 +179,7 @@ export default function ArticlePage() {
                         <span>{formatDate(relatedArticle.date)}</span>
                         <span>{locale === "ar" ? relatedArticle.readTimeAr : relatedArticle.readTimeEn}</span>
                       </div>
+
                     </div>
                   </Link>
                 ))}
@@ -188,17 +189,26 @@ export default function ArticlePage() {
         )}
 
         {/* CTA Section */}
-        <section className="py-20 bg-primary text-primary-foreground">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+        <section className="py-20 bg-[#060a12] text-white relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }}
+            />
+          </div>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
               {locale === "ar" ? "هل تحتاج استشارة قانونية؟" : "Need Legal Consultation?"}
             </h2>
-            <p className="text-xl text-primary-foreground/90 mb-8 leading-relaxed text-pretty">
+            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty">
               {locale === "ar"
                 ? "احصل على استشارة قانونية متخصصة من خبرائنا لحل مشاكلك القانونية"
                 : "Get specialized legal consultation from our experts to solve your legal problems"}
             </p>
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button size="lg" className="bg-accent text-white hover:bg-accent/90 h-12 px-6">
               {locale === "ar" ? "احجز استشارة" : "Book Consultation"}
               <ForwardIcon className="ml-2 h-5 w-5" />
             </Button>
@@ -210,3 +220,4 @@ export default function ArticlePage() {
     </div>
   )
 }
+

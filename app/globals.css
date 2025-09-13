@@ -58,7 +58,7 @@
   --accent-foreground: oklch(0.08 0.01 258.34); /* Dark navy text on accent */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.97 0 0);
-  --border: oklch(0.2 0.01 258.34); /* Dark navy border */
+  --border: oklch(27.4% 0.006 286.033); /* Dark navy border */
   --input: oklch(0.2 0.01 258.34); /* Dark navy input */
   --ring: oklch(0.75 0.15 85.87 / 0.5); /* Gold focus ring */
   --chart-1: oklch(0.75 0.15 85.87); /* Gold chart in dark mode */

@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import {
   Users,
   Home,
@@ -17,11 +18,15 @@ import {
   ArrowLeft,
   Phone,
 } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale"
+import { useLocale } from "@/hooks/use-locale-context"
 import { getTranslation } from "@/lib/i18n"
+import { useConsultationModal } from "@/hooks/use-consultation-modal"
+import { FreeConsultationModelButton } from "@/components/free-consultation-model-button"
+import { ConsultationModal } from "@/components/consultation-modal"
 
 export default function ServicesPage() {
   const { locale } = useLocale()
+  const { isOpen, openModal, closeModal } = useConsultationModal();
   const ArrowIcon = locale === "ar" ? ArrowLeft : ArrowRight
 
   const services = [
@@ -144,14 +149,26 @@ export default function ServicesPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        {/* Hero Section */}
-        <section className="py-20 bg-primary text-primary-foreground">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Hero Section  */}
+        <section className="relative py-20 text-white overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <img
+              src="/business-and-lawyers-discussing-contract-papers-with-brass.jpg"
+              alt="Professional Lawyer in Office"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/50 dark:bg-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-balance">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg">
                 {getTranslation(locale, "servicesTitle")}
               </h1>
-              <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed text-pretty">
+              <p className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md">
                 {locale === "ar"
                   ? "نقدم مجموعة شاملة من الخدمات القانونية المتخصصة لتلبية جميع احتياجاتكم القانونية"
                   : "We offer a comprehensive range of specialized legal services to meet all your legal needs"}
@@ -167,7 +184,7 @@ export default function ServicesPage() {
               {services.map((service, index) => (
                 <Card
                   key={index}
-                  className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-border hover:border-accent/50"
+                  className="group transition-all duration-300 hover:-translate-y-2 border-border hover:border-accent/50 flex flex-col h-full"
                 >
                   <CardHeader className="text-center pb-4">
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300">
@@ -177,26 +194,28 @@ export default function ServicesPage() {
                       {service.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    <CardDescription className="text-muted-foreground leading-relaxed">
-                      {service.description}
-                    </CardDescription>
-
-                    <div className="space-y-3">
-                      <h4 className="font-semibold text-foreground text-sm">
-                        {locale === "ar" ? "الخدمات المشمولة:" : "Services Included:"}
-                      </h4>
-                      <ul className="space-y-2">
-                        {service.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
+                  <CardContent className="flex flex-col justify-between flex-1 space-y-6">
+                    <div className="space-y-6">
+                      <CardDescription className="text-muted-foreground leading-relaxed">
+                        {service.description}
+                      </CardDescription>
+                       
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-foreground text-sm">
+                          {locale === "ar" ? "الخدمات المشمولة:" : "Services Included:"}
+                        </h4>
+                        <ul className="space-y-2">
+                          {service.features.map((feature, featureIndex) => (
+                            <li key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-
-                    <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90 group/btn">
+                    
+                    <Button className="w-full bg-accent text-white hover:bg-accent/90 group/btn mt-auto">
                       <a href={`/services/${service.slug}`} className="flex items-center justify-center w-full">
                         {locale === "ar" ? "اعرف المزيد" : "Learn More"}
                         <ArrowIcon className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform duration-200" />
@@ -210,58 +229,148 @@ export default function ServicesPage() {
         </section>
 
         {/* Process Section */}
-        <section className="py-20 bg-muted/30">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif text-balance">
+        <section className="py-24 bg-gradient-to-br from-muted/30 via-background to-muted/20 relative overflow-hidden">
+          {/* Background Decoration */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent rounded-full blur-3xl" />
+            <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary rounded-full blur-3xl" />
+          </div>
+          
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+            <div className="text-center mb-20">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
+                <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                <span className="text-sm font-medium text-accent">
+                  {locale === "ar" ? "منهجية عمل متميزة" : "Distinguished Work Methodology"}
+                </span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 font-serif text-balance">
                 {locale === "ar" ? "كيف نعمل" : "How We Work"}
               </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
+              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed text-pretty">
                 {locale === "ar"
                   ? "عملية عمل منظمة ومدروسة لضمان تحقيق أفضل النتائج لعملائنا"
                   : "An organized and well-studied work process to ensure achieving the best results for our clients"}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {processSteps.map((step, index) => (
-                <div key={index} className="text-center">
-                  <div className="relative mb-6">
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-foreground font-bold text-xl">
-                      {step.step}
+            <div className="relative">
+              {/* Enhanced Timeline Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-accent/30 via-accent/60 to-accent/30 hidden lg:block" />
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-accent/20 hidden lg:block" />
+
+              <div className="space-y-6 lg:space-y-20">
+                {processSteps.map((step, index) => (
+                  <div
+                    key={index}
+                    className={`group relative flex items-center ${
+                      index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
+                    } flex-col lg:gap-12`}
+                  >
+                    {/* Content Card */}
+                    <div
+                      className={`flex-1 w-full lg:w-auto ${
+                        index % 2 === 0 ? "lg:text-right" : "lg:text-left"
+                      } text-center lg:text-inherit`}
+                    >
+                      <Card className="group-hover:shadow-2xl group-hover:shadow-accent/10 transition-all duration-500 hover:-translate-y-2 border-border hover:border-accent/40 bg-background/80 backdrop-blur-sm">
+                        <CardContent className="p-8">
+                          <div className={`flex items-start gap-6 mb-6 ${
+                            index % 2 === 0 ? "lg:flex-row-reverse" : "lg:flex-row-reverse"
+                          } flex-row`}>
+                            {/* Icon Container */}
+                            <div className="relative">
+                              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 group-hover:from-accent/20 group-hover:to-accent/10 transition-all duration-300">
+                                <div className="text-2xl font-bold text-accent group-hover:scale-110 transition-transform duration-300">
+                                  {step.step}
+                                </div>
+                              </div>
+                              {/* Glow effect */}
+                              <div className="absolute inset-0 rounded-2xl bg-accent/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </div>
+                            
+                            {/* Content */}
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-3">
+                                <Badge 
+                                  variant="outline" 
+                                  className="text-accent border-accent/50 bg-accent/5 hover:bg-accent/10 transition-colors duration-300 font-medium"
+                                >
+                                  {locale === "ar" ? `الخطوة ${step.step}` : `Step ${step.step}`}
+                                </Badge>
+                                <div className="h-px bg-gradient-to-r from-accent/50 to-transparent flex-1 hidden lg:block" />
+                              </div>
+                              <h3 className="text-2xl font-bold text-foreground text-start mb-3 group-hover:text-accent transition-colors duration-300">
+                                {step.title}
+                              </h3>
+                              <p className="text-muted-foreground leading-relaxed text-start text-lg">
+                                {step.description}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </div>
-                    {index < processSteps.length - 1 && (
-                      <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-accent/20" />
-                    )}
+
+                    {/* Enhanced Timeline Dot */}
+                    <div className="relative z-20 items-center justify-center hidden lg:flex">
+                      <div className="relative">
+                        {/* Outer ring */}
+                        <div className="absolute inset-0 rounded-full bg-accent/20 animate-ping" />
+                        {/* Main dot */}
+                        <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent/80 border-4 border-background shadow-xl group-hover:scale-110 transition-transform duration-300">
+                          <div className="h-3 w-3 rounded-full bg-background" />
+                        </div>
+                        {/* Inner glow */}
+                        <div className="absolute inset-0 rounded-full bg-accent/30 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                    </div>
+
+                    {/* Spacer for desktop */}
+                    <div className="flex-1 hidden lg:block" />
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                ))}
+              </div>
+
+              {/* Timeline End Decoration */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-8 hidden lg:flex">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/20 border-2 border-accent/30">
+                  <div className="h-2 w-2 rounded-full bg-accent/60" />
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-primary text-primary-foreground">
+        <section className="py-20 bg-[#060a12] text-white relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10 z-[-1]">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }}
+            />
+          </div>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
               {locale === "ar" ? "جاهز للبدء؟" : "Ready to Get Started?"}
             </h2>
-            <p className="text-xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty">
+            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty">
               {locale === "ar"
                 ? "تواصل معنا اليوم للحصول على استشارة قانونية مجانية ومناقشة احتياجاتكم"
                 : "Contact us today for a free legal consultation and discuss your needs"}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                {locale === "ar" ? "احجز استشارة مجانية" : "Book Free Consultation"}
-                <ArrowIcon className="ml-2 h-5 w-5" />
-              </Button>
+            <>
+              <FreeConsultationModelButton onClick={openModal} />
+              <ConsultationModal isOpen={isOpen} onClose={closeModal} />
+            </>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground hover:text-primary bg-transparent"
+                className="border-white/30 text-white hover:bg-white hover:text-[#060a12] bg-transparent"
               >
                 {locale === "ar" ? "اتصل بنا" : "Call Us"}
                 <Phone className="ml-2 h-5 w-5" />

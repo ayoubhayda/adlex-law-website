@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Card, CardContent } from "@/components/ui/card"
 import { FileText, Scale, AlertTriangle, CreditCard, Shield, Users, Gavel, Mail } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale"
+import { useLocale } from "@/hooks/use-locale-context"
 
 export default function TermsPage() {
   const { locale } = useLocale()

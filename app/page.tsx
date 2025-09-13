@@ -8,8 +8,11 @@ import { ServicesPreview } from "@/components/services-preview"
 import { AboutPreview } from "@/components/about-preview"
 import { TestimonialCarousel } from "@/components/testimonial-carousel"
 import { CTASection } from "@/components/cta-section"
+import { useLocale } from "@/hooks/use-locale-context"
 
 export default function HomePage() {
+  const { locale } = useLocale()
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -17,12 +20,17 @@ export default function HomePage() {
         <HeroSection />
         <ServicesPreview />
         <AboutPreview />
-        <section className="py-16 bg-muted/30">
+        <section className="py-16 bg-background">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4 font-serif">What Our Clients Say</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4 font-serif">
+                {locale === "ar" ? "ماذا يقول عملاؤنا" : "What Our Clients Say"}
+              </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Trusted by hundreds of clients for professional legal representation
+                {locale === "ar" 
+                  ? "موثوق من قبل المئات من العملاء للتمثيل القانوني المهني"
+                  : "Trusted by hundreds of clients for professional legal representation"
+                }
               </p>
             </div>
             <TestimonialCarousel />
