@@ -11,6 +11,7 @@ import { Calendar, Clock, User, ArrowLeft, ArrowRight, Share2, BookOpen } from "
 import { useLocale } from "@/hooks/use-locale-context"
 import { getArticleBySlug, getRelatedArticles } from "@/lib/articles"
 import Link from "next/link"
+import ServiceConsultationModelButton from "@/components/service-consultation-model-button"
 
 export default function ArticlePage() {
   const params = useParams()
@@ -199,7 +200,7 @@ export default function ArticlePage() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
               {locale === "ar" ? "هل تحتاج استشارة قانونية؟" : "Need Legal Consultation?"}
             </h2>
@@ -208,10 +209,8 @@ export default function ArticlePage() {
                 ? "احصل على استشارة قانونية متخصصة من خبرائنا لحل مشاكلك القانونية"
                 : "Get specialized legal consultation from our experts to solve your legal problems"}
             </p>
-            <Button size="lg" className="bg-accent text-white hover:bg-accent/90 h-12 px-6">
-              {locale === "ar" ? "احجز استشارة" : "Book Consultation"}
-              <ForwardIcon className="ml-2 h-5 w-5" />
-            </Button>
+            {/* Get Consultation Button */}
+            <ServiceConsultationModelButton />
           </div>
         </section>
       </main>

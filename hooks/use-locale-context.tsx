@@ -7,6 +7,7 @@ import { defaultLocale } from "@/lib/i18n"
 interface LocaleContextType {
   locale: Locale
   switchLocale: (newLocale: Locale) => void
+  isLoaded: boolean
 }
 
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
@@ -17,14 +18,22 @@ interface LocaleProviderProps {
 
 export function LocaleProvider({ children }: LocaleProviderProps) {
   const [locale, setLocale] = useState<Locale>(defaultLocale)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
+    // Set initial dir and lang attributes to default (RTL for Arabic)
+    document.documentElement.setAttribute("dir", defaultLocale === "ar" ? "rtl" : "ltr")
+    document.documentElement.setAttribute("lang", defaultLocale)
+
+    // Check for saved locale in localStorage
     const savedLocale = localStorage.getItem("locale") as Locale
     if (savedLocale && (savedLocale === "en" || savedLocale === "ar")) {
       setLocale(savedLocale)
       document.documentElement.setAttribute("dir", savedLocale === "ar" ? "rtl" : "ltr")
       document.documentElement.setAttribute("lang", savedLocale)
     }
+    
+    setIsLoaded(true)
   }, [])
 
   const switchLocale = (newLocale: Locale) => {
@@ -35,7 +44,7 @@ export function LocaleProvider({ children }: LocaleProviderProps) {
   }
 
   return (
-    <LocaleContext.Provider value={{ locale, switchLocale }}>
+    <LocaleContext.Provider value={{ locale, switchLocale, isLoaded }}>
       {children}
     </LocaleContext.Provider>
   )

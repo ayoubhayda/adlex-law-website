@@ -4,17 +4,20 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, ArrowLeft, Phone, Mail } from "lucide-react"
 import { useLocale } from "@/hooks/use-locale-context"
 import { getTranslation } from "@/lib/i18n"
+import { ServiceConsultationModal } from "./service-consultation-modal"
+import { useState } from "react"
 
 export function HeroSection() {
   const { locale } = useLocale()
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const ArrowIcon = locale === "ar" ? ArrowLeft : ArrowRight
 
   return (
     <section className="relative h-[calc(100vh-64px)] lg:h-[calc(100vh-72px)] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img src="/elegant-law-office-interior-with-books-and-scales-.png" alt="Law Office" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black/80" />
+        <img src="/elegant-law-office.webp" alt="Law Office" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
       {/* Content */}
@@ -23,12 +26,12 @@ export function HeroSection() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 font-serif text-balance">
             {locale === "ar" ? (
               <>
-                <span className="block text-white">استشارات قانونية</span>
+                <span className="block text-white mb-3">استشارات قانونية</span>
                 <span className="block text-accent">متخصصة</span>
               </>
             ) : (
               <>
-                <span className="block text-white">Expert Legal</span>
+                <span className="block text-white mb-3">Expert Legal</span>
                 <span className="block text-accent">Consultation</span>
               </>
             )}
@@ -44,6 +47,7 @@ export function HeroSection() {
           <div className="flex flex-col items-center gap-6 mb-12">
             <Button 
               size="lg" 
+              onClick={() => setIsConsultationOpen(true)}
               className="bg-accent/10 backdrop-blur-sm border border-accent/20 text-accent hover:bg-accent/20 hover:border-accent/30 text-base sm:text-lg px-6 sm:px-10 py-3 sm:py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto max-w-xs"
             >
               {getTranslation(locale, "getConsultation")}
@@ -93,6 +97,11 @@ export function HeroSection() {
           
         </div>
       </div>
+      <ServiceConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        serviceName={""}
+      />
     </section>
   )
 }

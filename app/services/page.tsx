@@ -154,11 +154,11 @@ export default function ServicesPage() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src="/business-and-lawyers-discussing-contract-papers-with-brass.jpg"
+              src="/elegant-law-office-banner.webp"
               alt="Professional Lawyer in Office"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50 dark:bg-black/40" />
+            <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
           </div>
           
@@ -345,7 +345,7 @@ export default function ServicesPage() {
         {/* CTA Section */}
         <section className="py-20 bg-[#060a12] text-white relative overflow-hidden">
           {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10 z-[-1]">
+          <div className="absolute inset-0 opacity-10">
             <div
               className="absolute inset-0"
               style={{
@@ -353,7 +353,7 @@ export default function ServicesPage() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
               {locale === "ar" ? "جاهز للبدء؟" : "Ready to Get Started?"}
             </h2>
@@ -367,14 +367,14 @@ export default function ServicesPage() {
               <FreeConsultationModelButton onClick={openModal} />
               <ConsultationModal isOpen={isOpen} onClose={closeModal} />
             </>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white hover:text-[#060a12] bg-transparent"
-              >
-                {locale === "ar" ? "اتصل بنا" : "Call Us"}
-                <Phone className="ml-2 h-5 w-5" />
-              </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
+            >
+              {locale === "ar" ? "اتصل بنا الآن" : "Call Us Now"}
+              <Phone className="ml-2 h-5 w-5" />
+            </Button>
             </div>
           </div>
         </section>

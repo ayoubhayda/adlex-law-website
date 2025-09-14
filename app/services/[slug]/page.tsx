@@ -93,7 +93,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-zinc-700 dark:border-zinc-700 text-white hover:bg-primary-foreground hover:text-primary bg-transparent cursor-pointer"
+                    className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
                   >
                     {locale === "ar" ? "اتصل الآن" : "Call Now"}
                     <Phone className="ml-2 h-5 w-5" />
@@ -419,7 +419,7 @@ export default function ServicePage({ params }: ServicePageProps) {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mx-auto relative max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
               {locale === "ar" ? "جاهز للحصول على المساعدة القانونية؟" : "Ready to Get Legal Help?"}
             </h2>
@@ -440,7 +440,7 @@ export default function ServicePage({ params }: ServicePageProps) {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/30 text-white hover:bg-white hover:text-[#060a12] bg-transparent"
+                className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
               >
                 {locale === "ar" ? "اتصل بنا" : "Call Us"}
                 <Phone className="ml-2 h-5 w-5" />

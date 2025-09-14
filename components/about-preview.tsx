@@ -123,7 +123,7 @@ export function AboutPreview() {
               <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-br from-accent/5 to-accent/10 p-2">
                 <div className="relative overflow-hidden rounded-2xl">
                   <img
-                    src="/professional-lawyer-portrait-in-elegant-office-set.png"
+                    src="/professional-lawyer-portrait.webp"
                     alt="Professional Lawyer"
                     className="w-full h-[500px] sm:h-[600px] lg:h-[700px] object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -135,14 +135,14 @@ export function AboutPreview() {
               {/* Floating Achievement Card - Enhanced */}
               <div className="absolute -bottom-6 -right-6 sm:-bottom-8 sm:-right-8 lg:-bottom-12 lg:-right-12 hidden lg:block">
                 <Card className="bg-background/95 backdrop-blur-md shadow-none border border-accent/20 hover:border-accent/30 transition-all duration-300 hover:shadow-3xl hover:shadow-accent/20 group/card">
-                  <CardContent className="p-6 sm:p-8 text-center relative overflow-hidden">
+                  <CardContent className="px-6 py-y sm:px-8 sm:py-3 text-center relative overflow-hidden">
                     {/* Background decoration */}
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
                     <div className="relative z-10">
-                      <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-accent mb-2 group-hover/card:scale-110 transition-transform duration-300">
+                      <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-accent mb-2 group-hover/card:scale-110 transition-transform duration-300">
                         15+
                       </div>
-                      <div className="text-muted-foreground font-medium text-sm sm:text-base">
+                      <div className="text-muted-foreground font-medium text-xs sm:text-sm">
                         {locale === "ar" ? "سنوات خبرة" : "Years Experience"}
                       </div>
                       {/* Decorative element */}
@@ -150,19 +150,6 @@ export function AboutPreview() {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-
-              {/* Additional floating elements for visual interest */}
-              <div className="absolute top-8 -left-4 sm:top-12 sm:-left-6 hidden lg:block">
-                <div className="w-12 h-12 rounded-2xl bg-accent/10 backdrop-blur-sm border border-accent/20 flex items-center justify-center group-hover:rotate-12 transition-transform duration-500">
-                  <Award className="h-6 w-6 text-accent" />
-                </div>
-              </div>
-              
-              <div className="absolute bottom-20 -left-2 sm:bottom-24 sm:-left-4 hidden lg:block">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 backdrop-blur-sm border border-accent/20 flex items-center justify-center group-hover:-rotate-12 transition-transform duration-500">
-                  <CheckCircle className="h-5 w-5 text-accent" />
-                </div>
               </div>
             </div>
           </div>

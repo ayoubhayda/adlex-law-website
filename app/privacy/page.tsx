@@ -166,7 +166,7 @@ export default function PrivacyPage() {
       <Navbar />
       <main>
         {/* Hero Section */}
-        <section className="py-20 bg-primary text-primary-foreground">
+        <section className="py-20 bg-[#060a12] text-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
@@ -175,12 +175,12 @@ export default function PrivacyPage() {
               <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-balance">
                 {locale === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
               </h1>
-              <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed text-pretty">
+              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed text-pretty">
                 {locale === "ar"
                   ? "نحن ملتزمون بحماية خصوصيتك وأمان معلوماتك الشخصية"
                   : "We are committed to protecting your privacy and the security of your personal information"}
               </p>
-              <p className="text-primary-foreground/80 mt-4">
+              <p className="text-white/80 mt-4">
                 {locale === "ar" ? "آخر تحديث: " : "Last updated: "}
                 {formatDate(lastUpdated)}
               </p>
@@ -250,7 +250,7 @@ export default function PrivacyPage() {
                   </p>
                   <p>
                     <strong>{locale === "ar" ? "الهاتف: " : "Phone: "}</strong>
-                    +966 50 123 4567
+                    <span dir="ltr">+966 50 123 4567</span>
                   </p>
                   <p>
                     <strong>{locale === "ar" ? "العنوان: " : "Address: "}</strong>

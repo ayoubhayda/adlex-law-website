@@ -52,7 +52,7 @@ export function CTASection() {
             <Button
               size="lg"
               variant="outline"
-              className="border-zinc-700 dark:border-zinc-700 text-white hover:bg-primary-foreground hover:text-primary bg-transparent"
+              className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
             >
               {locale === "ar" ? "اتصل بنا الآن" : "Call Us Now"}
               <Phone className="ml-2 h-5 w-5" />
@@ -68,7 +68,7 @@ export function CTASection() {
               <h3 className="font-semibold mb-2">
                 {locale === "ar" ? "اتصل بنا" : "Call Us"}
               </h3>
-              <p className="text-white/80">+966 50 123 4567</p>
+              <p className="text-white/80" dir="ltr">+966 50 123 4567</p>
             </div>
 
             <div className="text-center">

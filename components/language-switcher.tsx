@@ -8,7 +8,7 @@ import type { Locale } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 
 export function LanguageSwitcher() {
-  const { locale, switchLocale } = useLocale()
+  const { locale, switchLocale, isLoaded } = useLocale()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -35,6 +35,20 @@ export function LanguageSwitcher() {
   const handleLanguageSelect = (newLocale: Locale) => {
     switchLocale(newLocale)
     setIsOpen(false)
+  }
+
+  // Don't render until locale is loaded to prevent hydration mismatch
+  if (!isLoaded) {
+    return (
+      <Button
+        variant="outline"
+        disabled
+        className="bg-transparent border-border/50 dark:border-zinc-700 shadow-none"
+      >
+        <Languages className="h-4 w-4" />
+        <span className="sr-only">Select language</span>
+      </Button>
+    )
   }
 
   return (

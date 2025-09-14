@@ -119,11 +119,11 @@ export default function AboutPage() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src="/elegant-law-office-interior-with-books-and-scales-.png"
+              src="/elegant-law-office-banner.webp"
               alt="Law Office Interior"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50 dark:bg-black/40" />
+            <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
           </div>
 
@@ -158,11 +158,11 @@ export default function AboutPage() {
               >
                 <div className="relative overflow-hidden rounded-3xl">
                   <img
-                    src="/professional-lawyer-portrait-in-elegant-office-set.png"
+                    src="/professional-lawyer-portrait.webp"
                     alt="Professional Lawyer"
-                    className="w-full h-[600px] object-cover"
+                    className="w-full h-[600px] object-cover object-top"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
+                  
                 </div>
 
                 {/* Floating Stats */}
@@ -174,7 +174,7 @@ export default function AboutPage() {
                       key={index}
                       className="bg-background shadow-sm border-accent/20"
                     >
-                      <CardContent className="p-4 text-center">
+                      <CardContent className="px-4 text-center">
                         <div className="text-2xl font-bold text-accent mb-1">
                           {achievement.number}
                         </div>
@@ -398,7 +398,7 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-20 bg-[#060a12] text-white relative overflow-hidden">
           {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10 z-[-1]">
+          <div className="absolute inset-0 opacity-10">
             <div
               className="absolute inset-0"
               style={{
@@ -406,7 +406,7 @@ export default function AboutPage() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
               {locale === "ar"
                 ? "هل تحتاج إلى استشارة قانونية؟"

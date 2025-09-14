@@ -103,11 +103,11 @@ export default function ContactPage() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src="/vecteezy_internet-law-concept-cyber-law-as-digital-legal-services_15324234.jpg"
+              src="/elegant-law-office-banner.webp"
               alt="Professional Legal Office"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50 dark:bg-black/40" />
+            <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
           </div>
           
@@ -192,6 +192,8 @@ export default function ContactPage() {
                               onChange={handleInputChange}
                               placeholder={locale === "ar" ? "رقم الهاتف" : "Phone number"}
                               className="h-12 border-border/60 focus:border-accent transition-colors duration-200"
+                              dir="ltr"
+                              style={{textAlign: locale === "ar" ? "right" : "left"}}
                             />
                           </div>
                         </div>
@@ -338,7 +340,7 @@ export default function ContactPage() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <h4 className="font-semibold text-foreground mb-2 text-lg">{info.title}</h4>
-                            <p className="text-foreground font-medium mb-2 text-base">{info.value}</p>
+                            <p className="text-foreground font-medium mb-2 text-base" dir="ltr" style={{textAlign: locale === "ar" ? "right" : "left"}}>{info.value}</p>
                             <p className="text-muted-foreground text-sm leading-relaxed">{info.description}</p>
                           </div>
                         </div>

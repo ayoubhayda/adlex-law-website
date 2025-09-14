@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Calendar, Clock, User, Search, ArrowRight, ArrowLeft } from "lucide-react"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Calendar, Clock, User, Search, ArrowRight, ArrowLeft, CheckCircle, Mail } from "lucide-react"
 import { useLocale } from "@/hooks/use-locale-context"
 import Link from "next/link"
 import { getAllArticles } from "@/lib/articles"
@@ -18,6 +19,9 @@ export default function BlogPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [showAllArticles, setShowAllArticles] = useState(false)
+  const [email, setEmail] = useState("")
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const ArrowIcon = locale === "ar" ? ArrowLeft : ArrowRight
 
   const allArticles = getAllArticles()
@@ -56,6 +60,32 @@ export default function BlogPage() {
     })
   }
 
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!email.trim()) {
+      return
+    }
+
+    if (!isValidEmail(email)) {
+      return
+    }
+
+    setIsSubmitting(true)
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    setShowSuccessModal(true)
+    setEmail("")
+    setIsSubmitting(false)
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -65,11 +95,11 @@ export default function BlogPage() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src="/elegant-law-office-interior-with-books-and-scales-.png"
+              src="/elegant-law-office-banner.webp"
               alt="Legal Blog Background"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50 dark:bg-black/40" />
+            <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
           </div>
           
@@ -303,7 +333,7 @@ export default function BlogPage() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
               {locale === "ar" ? "اشترك في النشرة القانونية" : "Subscribe to Legal Newsletter"}
             </h2>
@@ -312,22 +342,61 @@ export default function BlogPage() {
                 ? "احصل على آخر المقالات والنصائح القانونية مباشرة في بريدك الإلكتروني"
                 : "Get the latest legal articles and tips delivered directly to your email"}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
               <Input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder={locale === "ar" ? "بريدك الإلكتروني" : "Your email address"}
                 className="bg-white/10 border-white/30 text-white placeholder:text-white/60 focus:border-accent/50 focus:ring-accent/20 h-12"
+                required
               />
-              <Button className="bg-accent text-white hover:bg-accent/90 h-12 px-6">
-                {locale === "ar" ? "اشترك" : "Subscribe"}
-                <ArrowIcon className="ml-2 h-5 w-5" />
+              <Button 
+                type="submit"
+                disabled={isSubmitting || !email.trim() || !isValidEmail(email)}
+                className="bg-accent text-white hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed h-12 px-6"
+              >
+                {isSubmitting 
+                  ? (locale === "ar" ? "جاري الإرسال..." : "Submitting...")
+                  : (locale === "ar" ? "اشترك" : "Subscribe")
+                }
+                {!isSubmitting && <ArrowIcon className="ml-2 h-5 w-5" />}
               </Button>
-            </div>
+            </form>
           </div>
         </section>
       </main>
       <Footer />
       <WhatsAppButton />
+
+      {/* Success Modal */}
+      <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader className="text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/20">
+              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
+            </div>
+            <DialogTitle className="text-xl font-semibold text-center">
+              {locale === "ar" ? "تم الاشتراك بنجاح!" : "Successfully Subscribed!"}
+            </DialogTitle>
+            <DialogDescription className="text-center mt-2">
+              {locale === "ar" 
+                ? "شكراً لك على الاشتراك في نشرتنا القانونية. ستصلك آخر المقالات والنصائح القانونية مباشرة في بريدك الإلكتروني."
+                : "Thank you for subscribing to our legal newsletter. You'll receive the latest legal articles and tips directly in your email."
+              }
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-center mt-6">
+            <Button
+              onClick={() => setShowSuccessModal(false)}
+              className="bg-accent text-white hover:bg-accent/90"
+            >
+              <Mail className="mr-2 h-4 w-4" />
+              {locale === "ar" ? "ممتاز" : "Great"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
