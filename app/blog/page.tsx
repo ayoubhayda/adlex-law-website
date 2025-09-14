@@ -5,11 +5,9 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Calendar, Clock, User, Search, ArrowRight, ArrowLeft, CheckCircle, Mail } from "lucide-react"
+import { Calendar, Clock, Search, ArrowRight, ArrowLeft, CheckCircle, Mail } from "lucide-react"
 import { useLocale } from "@/hooks/use-locale-context"
 import Link from "next/link"
 import { getAllArticles } from "@/lib/articles"
@@ -360,7 +358,6 @@ export default function BlogPage() {
                   ? (locale === "ar" ? "جاري الإرسال..." : "Submitting...")
                   : (locale === "ar" ? "اشترك" : "Subscribe")
                 }
-                {!isSubmitting && <ArrowIcon className="ml-2 h-5 w-5" />}
               </Button>
             </form>
           </div>

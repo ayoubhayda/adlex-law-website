@@ -443,7 +443,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                 className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
               >
                 {locale === "ar" ? "اتصل بنا" : "Call Us"}
-                <Phone className="ml-2 h-5 w-5" />
+                <Phone className="ms-2 h-5 w-5" />
               </Button>
             </div>
           </div>

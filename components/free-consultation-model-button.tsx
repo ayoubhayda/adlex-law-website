@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeftIcon, ArrowUpIcon } from "lucide-react"
+import { ArrowLeftIcon, ArrowUpIcon, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLocale } from "@/hooks/use-locale-context"
 
@@ -14,11 +14,11 @@ export function FreeConsultationModelButton({ onClick }: FreeConsultationModelBu
   return (
     <Button
       onClick={onClick}
-      className="bg-accent text-white hover:bg-accent/90 text-lg px-8 py-4 cursor-pointer"
+      className="bg-accent text-white hover:bg-accent/90 px-8 py-4 cursor-pointer"
       size="lg"
     >
-     {locale === "ar" ? "احجز استشارة مجانية" : "Book Free Consultation"}
-     <ArrowLeftIcon className="ml-2 h-5 w-5" />
+     {locale === "ar" ? "استشارة مجانية" : "Free Consultation"}
+     <MessageCircle className="h-5 w-5 ms-2" />
     </Button>
   )
 }

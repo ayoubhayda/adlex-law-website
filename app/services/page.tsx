@@ -218,7 +218,7 @@ export default function ServicesPage() {
                     <Button className="w-full bg-accent text-white hover:bg-accent/90 group/btn mt-auto">
                       <a href={`/services/${service.slug}`} className="flex items-center justify-center w-full">
                         {locale === "ar" ? "اعرف المزيد" : "Learn More"}
-                        <ArrowIcon className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform duration-200" />
+                        <ArrowIcon className="ms-2 h-4 w-4 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform duration-200" />
                       </a>
                     </Button>
                   </CardContent>
@@ -373,7 +373,7 @@ export default function ServicesPage() {
               className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
             >
               {locale === "ar" ? "اتصل بنا الآن" : "Call Us Now"}
-              <Phone className="ml-2 h-5 w-5" />
+              <Phone className="ms-2 h-5 w-5" />
             </Button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRight, ArrowLeft, Phone, Mail } from "lucide-react"
+import { ArrowRight, ArrowLeft, Phone, Mail, MessageCircle } from "lucide-react"
 import { useLocale } from "@/hooks/use-locale-context"
 import { getTranslation } from "@/lib/i18n"
 import { ServiceConsultationModal } from "./service-consultation-modal"
@@ -51,7 +51,7 @@ export function HeroSection() {
               className="bg-accent/10 backdrop-blur-sm border border-accent/20 text-accent hover:bg-accent/20 hover:border-accent/30 text-base sm:text-lg px-6 sm:px-10 py-3 sm:py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto max-w-xs"
             >
               {getTranslation(locale, "getConsultation")}
-              <ArrowIcon className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+              <MessageCircle className="ms-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </div>
 
