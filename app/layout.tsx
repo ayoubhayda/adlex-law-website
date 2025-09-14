@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://adlex-law.com'),
+  metadataBase: new URL('https://adlex-law.vercel.app'),
   alternates: {
     canonical: '/',
     languages: {
@@ -64,13 +64,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://adlex-law.com',
+    url: 'https://adlex-law.vercel.app',
     title: 'Adlex Law - Premium Legal Services | Expert Legal Consultation',
     description: 'Leading law firm providing expert legal consultation and representation in Arabic and English. Professional, trusted, and results-driven legal solutions.',
     siteName: 'Adlex Law',
     images: [
       {
-        url: '/Adlex-Law-Premium-Legal-Services-Expert-Legal-Consultation.png',
+        url: '/Adlex-Law-Premium-Legal-Services-Expert-Legal-Consultation.webp',
         width: 1200,
         height: 630,
         alt: 'Adlex Law - Professional Legal Services',
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Adlex Law - Premium Legal Services | Expert Legal Consultation',
     description: 'Leading law firm providing expert legal consultation and representation in Arabic and English. Professional, trusted, and results-driven legal solutions.',
-    images: ['/Adlex-Law-Premium-Legal-Services-Expert-Legal-Consultation.png'],
+    images: ['/Adlex-Law-Premium-Legal-Services-Expert-Legal-Consultation.webp'],
     creator: '@adlexlaw',
     site: '@adlexlaw',
   },

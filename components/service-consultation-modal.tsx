@@ -221,7 +221,7 @@ export function ServiceConsultationModal({ isOpen, onClose, serviceName }: Servi
                         value={formData.preferredContact}
                         onValueChange={(value) => handleInputChange("preferredContact", value)}
                       >
-                        <SelectTrigger className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200">
+                        <SelectTrigger className={`h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 ${locale === "ar" ? "flex-row-reverse" : ""}`}>
                           <SelectValue placeholder={locale === "ar" ? "اختر طريقة التواصل" : "Select contact method"} />
                         </SelectTrigger>
                         <SelectContent>
@@ -258,7 +258,7 @@ export function ServiceConsultationModal({ isOpen, onClose, serviceName }: Servi
                         {locale === "ar" ? "مستوى الأولوية" : "Urgency Level"}
                       </Label>
                       <Select value={formData.urgency} onValueChange={(value) => handleInputChange("urgency", value)}>
-                        <SelectTrigger className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200">
+                        <SelectTrigger className={`h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 ${locale === "ar" ? "flex-row-reverse" : ""}`}>
                           <SelectValue placeholder={locale === "ar" ? "اختر مستوى الأولوية" : "Select urgency level"} />
                         </SelectTrigger>
                         <SelectContent>

@@ -236,7 +236,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         value={formData.preferredTime}
                         onValueChange={(value) => handleInputChange("preferredTime", value)}
                       >
-                        <SelectTrigger className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200">
+                        <SelectTrigger className={`h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 ${locale === "ar" ? "flex-row-reverse" : ""}`}>
                           <SelectValue placeholder={locale === "ar" ? "اختر الوقت المفضل" : "Select preferred time"} />
                         </SelectTrigger>
                         <SelectContent>
@@ -278,7 +278,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         value={formData.serviceType}
                         onValueChange={(value) => handleInputChange("serviceType", value)}
                       >
-                        <SelectTrigger className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200">
+                        <SelectTrigger className={`h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 ${locale === "ar" ? "flex-row-reverse" : ""}`}>
                           <SelectValue placeholder={locale === "ar" ? "اختر نوع الخدمة" : "Select service type"} />
                         </SelectTrigger>
                         <SelectContent>
@@ -312,7 +312,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         value={formData.consultationType}
                         onValueChange={(value) => handleInputChange("consultationType", value)}
                       >
-                        <SelectTrigger className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200">
+                        <SelectTrigger className={`h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 ${locale === "ar" ? "flex-row-reverse" : ""}`}>
                           <SelectValue placeholder={locale === "ar" ? "اختر نوع الاستشارة" : "Select consultation type"} />
                         </SelectTrigger>
                         <SelectContent>
