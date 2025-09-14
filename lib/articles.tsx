@@ -160,7 +160,7 @@ export const articles: Article[] = [
             margin: 10px 0;
             padding: 15px;
             background: #f9f9f9;
-            border-left: 3px solid #333;
+            border-right: 3px solid #333;
             position: relative;
             padding-right: 50px;
           }
@@ -1234,7 +1234,7 @@ export const articles: Article[] = [
             margin: 10px 0;
             padding: 15px;
             background: #f9f9f9;
-            border-left: 3px solid #333;
+            border-right: 3px solid #333;
             position: relative;
             padding-right: 50px;
           }
@@ -2252,7 +2252,7 @@ export const articles: Article[] = [
             margin: 10px 0;
             padding: 15px;
             background: #f9f9f9;
-            border-left: 3px solid #333;
+            border-right: 3px solid #333;
             position: relative;
             padding-right: 50px;
           }
@@ -3156,7 +3156,7 @@ export const articles: Article[] = [
               margin: 10px 0;
               padding: 15px;
               background: #f9f9f9;
-              border-left: 3px solid #333;
+              border-right: 3px solid #333;
               position: relative;
               padding-right: 50px;
             }
@@ -4308,7 +4308,7 @@ export const articles: Article[] = [
             margin: 10px 0;
             padding: 15px;
             background: #f9f9f9;
-            border-left: 3px solid #333;
+            border-right: 3px solid #333;
             position: relative;
             padding-right: 50px;
           }
