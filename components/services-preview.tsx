@@ -6,6 +6,7 @@ import { Users, Home, Briefcase, Shield, ArrowRight, ArrowLeft } from "lucide-re
 import { useLocale } from "@/hooks/use-locale-context"
 import { getTranslation } from "@/lib/i18n"
 import Link from "next/link"
+import { motion } from "framer-motion";
 
 export function ServicesPreview() {
   const { locale } = useLocale()
@@ -50,45 +51,163 @@ export function ServicesPreview() {
     },
   ]
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+    
+      },
+    },
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+    
+      },
+    },
+  };
+
+  const serviceCardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+    
+      },
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        delay: 0.8,
+    
+      },
+    },
+  };
+
   return (
     <section className="py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif text-balance">
+        <motion.div
+          className="text-center mb-16"
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif text-balance"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             {getTranslation(locale, "servicesTitle")}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
+          </motion.h2>
+          <motion.p
+            className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          >
             {locale === "ar"
               ? "نقدم مجموعة شاملة من الخدمات القانونية المتخصصة لتلبية احتياجاتكم القانونية المختلفة"
               : "We offer a comprehensive range of specialized legal services to meet your diverse legal needs"}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {services.map((service, index) => (
-            <div key={index} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+            <motion.div
+              key={index}
+              variants={serviceCardVariants}
+              whileHover={{
+                scale: 1.05,
+                y: -5,
+                transition: { type: "spring", stiffness: 400, damping: 17 },
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
               <ServiceCard
                 icon={service.icon}
                 title={service.title}
                 description={service.description}
                 href={`/services/${service.slug}`}
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="text-center">
-          <Link href="/services">
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-accent text-accent hover:bg-accent hover:text-white dark:hover:bg-accent dark:border-border bg-transparent transition-all cursor-pointer"
-            >
-              {locale === "ar" ? "عرض جميع الخدمات" : "View All Services"}
-              <ArrowIcon className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </div>
+        <motion.div
+          className="text-center"
+          variants={buttonVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <motion.div
+            whileHover={{
+              scale: 1.05,
+              transition: { type: "spring", stiffness: 400, damping: 17 },
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link href="/services">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-accent text-accent hover:bg-accent hover:text-white dark:hover:bg-accent dark:border-border bg-transparent transition-all cursor-pointer"
+              >
+                {locale === "ar" ? "عرض جميع الخدمات" : "View All Services"}
+                <motion.div
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <ArrowIcon className="ml-2 h-5 w-5" />
+                </motion.div>
+              </Button>
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )

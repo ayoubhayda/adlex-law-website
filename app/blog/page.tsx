@@ -11,6 +11,7 @@ import { Calendar, Clock, Search, ArrowRight, ArrowLeft, CheckCircle, Mail } fro
 import { useLocale } from "@/hooks/use-locale-context"
 import Link from "next/link"
 import { getAllArticles } from "@/lib/articles"
+import { motion } from "framer-motion"
 
 export default function BlogPage() {
   const { locale } = useLocale()
@@ -91,7 +92,12 @@ export default function BlogPage() {
         {/* Hero Section */}
         <section className="relative py-20 text-white overflow-hidden">
           {/* Background Image */}
-          <div className="absolute inset-0">
+          <motion.div 
+            className="absolute inset-0"
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          >
             <img
               src="/elegant-law-office-banner.webp"
               alt="Legal Blog Background"
@@ -99,19 +105,29 @@ export default function BlogPage() {
             />
             <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
-          </div>
+          </motion.div>
           
           {/* Content */}
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg">
+              <motion.h1 
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 {locale === "ar" ? "المدونة القانونية" : "Legal Blog"}
-              </h1>
-              <p className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md">
+              </motion.h1>
+              <motion.p 
+                className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 {locale === "ar"
                   ? "مقالات ونصائح قانونية متخصصة لمساعدتكم في فهم القوانين والإجراءات القانونية"
                   : "Specialized legal articles and tips to help you understand laws and legal procedures"}
-              </p>
+              </motion.p>
             </div>
           </div>
         </section>
@@ -126,22 +142,46 @@ export default function BlogPage() {
           
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
             {/* Section Header */}
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
+            <motion.div 
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div 
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
                 <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 <span className="text-sm font-medium text-accent">
                   {locale === "ar" ? "المقالات القانونية" : "Legal Articles"}
                 </span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif text-balance">
+              </motion.div>
+              <motion.h2 
+                className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif text-balance"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
                 {locale === "ar" ? "مقالاتنا القانونية" : "Our Legal Articles"}
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed text-pretty">
+              </motion.h2>
+              <motion.p 
+                className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed text-pretty"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
                 {locale === "ar"
                   ? "اكتشف مجموعة واسعة من المقالات القانونية المتخصصة وابحث عن ما يهمك"
                   : "Discover a wide range of specialized legal articles and find what interests you"}
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
 
             {/* Search and Filter Controls */}
             <div className="max-w-4xl mx-auto mb-16">
@@ -331,16 +371,41 @@ export default function BlogPage() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
+          <motion.div 
+            className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
               {locale === "ar" ? "اشترك في النشرة القانونية" : "Subscribe to Legal Newsletter"}
-            </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty">
+            </motion.h2>
+            <motion.p 
+              className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               {locale === "ar"
                 ? "احصل على آخر المقالات والنصائح القانونية مباشرة في بريدك الإلكتروني"
                 : "Get the latest legal articles and tips delivered directly to your email"}
-            </p>
-            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            </motion.p>
+            <motion.form 
+              onSubmit={handleNewsletterSubmit} 
+              className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               <Input
                 type="email"
                 value={email}
@@ -359,8 +424,8 @@ export default function BlogPage() {
                   : (locale === "ar" ? "اشترك" : "Subscribe")
                 }
               </Button>
-            </form>
-          </div>
+            </motion.form>
+          </motion.div>
         </section>
       </main>
       <Footer />

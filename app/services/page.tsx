@@ -23,11 +23,45 @@ import { getTranslation } from "@/lib/i18n"
 import { useConsultationModal } from "@/hooks/use-consultation-modal"
 import { FreeConsultationModelButton } from "@/components/free-consultation-model-button"
 import { ConsultationModal } from "@/components/consultation-modal"
+import { motion } from "framer-motion"
 
 export default function ServicesPage() {
   const { locale } = useLocale()
   const { isOpen, openModal, closeModal } = useConsultationModal();
   const ArrowIcon = locale === "ar" ? ArrowLeft : ArrowRight
+
+  // Animation variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const fadeInLeft = {
+    initial: { opacity: 0, x: -60 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const fadeInRight = {
+    initial: { opacity: 0, x: 60 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const scaleIn = {
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 0.5, ease: "easeOut" }
+  };
 
   const services = [
     {
@@ -152,7 +186,12 @@ export default function ServicesPage() {
         {/* Hero Section  */}
         <section className="relative py-20 text-white overflow-hidden">
           {/* Background Image */}
-          <div className="absolute inset-0">
+          <motion.div 
+            className="absolute inset-0"
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          >
             <img
               src="/elegant-law-office-banner.webp"
               alt="Professional Lawyer in Office"
@@ -160,19 +199,29 @@ export default function ServicesPage() {
             />
             <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
-          </div>
+          </motion.div>
           
           {/* Content */}
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg">
+              <motion.h1 
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 {getTranslation(locale, "servicesTitle")}
-              </h1>
-              <p className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md">
+              </motion.h1>
+              <motion.p 
+                className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 {locale === "ar"
                   ? "نقدم مجموعة شاملة من الخدمات القانونية المتخصصة لتلبية جميع احتياجاتكم القانونية"
                   : "We offer a comprehensive range of specialized legal services to meet all your legal needs"}
-              </p>
+              </motion.p>
             </div>
           </div>
         </section>
@@ -180,64 +229,109 @@ export default function ServicesPage() {
         {/* Services Grid */}
         <section className="py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, margin: "-100px" }}
+            >
               {services.map((service, index) => (
-                <Card
+                <motion.div
                   key={index}
-                  className="group transition-all duration-300 hover:-translate-y-2 border-border hover:border-accent/50 flex flex-col h-full"
+                  variants={fadeInUp}
+                  whileHover={{ y: -8 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <CardHeader className="text-center pb-4">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300">
-                      <service.icon className="h-8 w-8 text-accent" />
-                    </div>
-                    <CardTitle className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors duration-300">
-                      {service.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex flex-col justify-between flex-1 space-y-6">
-                    <div className="space-y-6">
-                      <CardDescription className="text-muted-foreground leading-relaxed">
-                        {service.description}
-                      </CardDescription>
-                       
-                      <div className="space-y-3">
-                        <h4 className="font-semibold text-foreground text-sm">
-                          {locale === "ar" ? "الخدمات المشمولة:" : "Services Included:"}
-                        </h4>
-                        <ul className="space-y-2">
-                          {service.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
+                  <Card className="group transition-all duration-300 hover:-translate-y-2 border-border hover:border-accent/50 flex flex-col h-full">
+                    <CardHeader className="text-center pb-4">
+                      <motion.div 
+                        className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300"
+                        whileHover={{ scale: 1.1, rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <service.icon className="h-8 w-8 text-accent" />
+                      </motion.div>
+                      <CardTitle className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors duration-300">
+                        {service.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-col justify-between flex-1 space-y-6">
+                      <div className="space-y-6">
+                        <CardDescription className="text-muted-foreground leading-relaxed">
+                          {service.description}
+                        </CardDescription>
+                         
+                        <div className="space-y-3">
+                          <h4 className="font-semibold text-foreground text-sm">
+                            {locale === "ar" ? "الخدمات المشمولة:" : "Services Included:"}
+                          </h4>
+                          <motion.ul 
+                            className="space-y-2"
+                            variants={staggerContainer}
+                            initial="initial"
+                            whileInView="animate"
+                            viewport={{ once: true }}
+                          >
+                            {service.features.map((feature, featureIndex) => (
+                              <motion.li 
+                                key={featureIndex} 
+                                className="flex items-center gap-2 text-sm text-muted-foreground"
+                                variants={{
+                                  initial: { opacity: 0, x: -20 },
+                                  animate: { opacity: 1, x: 0 }
+                                }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
+                                {feature}
+                              </motion.li>
+                            ))}
+                          </motion.ul>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <Button className="w-full bg-accent text-white hover:bg-accent/90 group/btn mt-auto">
-                      <a href={`/services/${service.slug}`} className="flex items-center justify-center w-full">
-                        {locale === "ar" ? "اعرف المزيد" : "Learn More"}
-                        <ArrowIcon className="ms-2 h-4 w-4 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform duration-200" />
-                      </a>
-                    </Button>
-                  </CardContent>
-                </Card>
+                      
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Button className="w-full bg-accent text-white hover:bg-accent/90 group/btn mt-auto">
+                          <a href={`/services/${service.slug}`} className="flex items-center justify-center w-full">
+                            {locale === "ar" ? "اعرف المزيد" : "Learn More"}
+                            <ArrowIcon className="ms-2 h-4 w-4 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform duration-200" />
+                          </a>
+                        </Button>
+                      </motion.div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Process Section */}
         <section className="py-24 bg-gradient-to-br from-muted/30 via-background to-muted/20 relative overflow-hidden">
           {/* Background Decoration */}
-          <div className="absolute inset-0 opacity-5">
+          <motion.div 
+            className="absolute inset-0 opacity-5"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.05 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary rounded-full blur-3xl" />
-          </div>
+          </motion.div>
           
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-            <div className="text-center mb-20">
+            <motion.div 
+              className="text-center mb-20"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+            >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
                 <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 <span className="text-sm font-medium text-accent">
@@ -252,20 +346,31 @@ export default function ServicesPage() {
                   ? "عملية عمل منظمة ومدروسة لضمان تحقيق أفضل النتائج لعملائنا"
                   : "An organized and well-studied work process to ensure achieving the best results for our clients"}
               </p>
-            </div>
+            </motion.div>
 
             <div className="relative">
               {/* Enhanced Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-accent/30 via-accent/60 to-accent/30 hidden lg:block" />
+              <motion.div 
+                className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-accent/30 via-accent/60 to-accent/30 hidden lg:block"
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+                style={{ transformOrigin: "top" }}
+              />
               <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-accent/20 hidden lg:block" />
 
               <div className="space-y-6 lg:space-y-20">
                 {processSteps.map((step, index) => (
-                  <div
+                  <motion.div
                     key={index}
                     className={`group relative flex items-center ${
                       index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
                     } flex-col lg:gap-12`}
+                    initial={{ opacity: 0, y: 60 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, delay: index * 0.2 }}
                   >
                     {/* Content Card */}
                     <div
@@ -279,7 +384,11 @@ export default function ServicesPage() {
                             index % 2 === 0 ? "lg:flex-row-reverse" : "lg:flex-row-reverse"
                           } flex-row`}>
                             {/* Icon Container */}
-                            <div className="relative">
+                            <motion.div 
+                              className="relative"
+                              whileHover={{ scale: 1.1 }}
+                              transition={{ type: "spring", stiffness: 300 }}
+                            >
                               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 group-hover:from-accent/20 group-hover:to-accent/10 transition-all duration-300">
                                 <div className="text-2xl font-bold text-accent group-hover:scale-110 transition-transform duration-300">
                                   {step.step}
@@ -287,7 +396,7 @@ export default function ServicesPage() {
                               </div>
                               {/* Glow effect */}
                               <div className="absolute inset-0 rounded-2xl bg-accent/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            </div>
+                            </motion.div>
                             
                             {/* Content */}
                             <div className="flex-1">
@@ -313,7 +422,13 @@ export default function ServicesPage() {
                     </div>
 
                     {/* Enhanced Timeline Dot */}
-                    <div className="relative z-20 items-center justify-center hidden lg:flex">
+                    <motion.div 
+                      className="relative z-20 items-center justify-center hidden lg:flex"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                    >
                       <div className="relative">
                         {/* Outer ring */}
                         <div className="absolute inset-0 rounded-full bg-accent/20 animate-ping" />
@@ -324,20 +439,26 @@ export default function ServicesPage() {
                         {/* Inner glow */}
                         <div className="absolute inset-0 rounded-full bg-accent/30 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
-                    </div>
+                    </motion.div>
 
                     {/* Spacer for desktop */}
                     <div className="flex-1 hidden lg:block" />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
               {/* Timeline End Decoration */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-8 hidden lg:flex">
+              <motion.div 
+                className="absolute left-1/2 transform -translate-x-1/2 -bottom-8 hidden lg:flex"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 1 }}
+              >
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/20 border-2 border-accent/30">
                   <div className="h-2 w-2 rounded-full bg-accent/60" />
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -353,7 +474,13 @@ export default function ServicesPage() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative">
+          <motion.div 
+            className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
               {locale === "ar" ? "جاهز للبدء؟" : "Ready to Get Started?"}
             </h2>
@@ -362,21 +489,33 @@ export default function ServicesPage() {
                 ? "تواصل معنا اليوم للحصول على استشارة قانونية مجانية ومناقشة احتياجاتكم"
                 : "Contact us today for a free legal consultation and discuss your needs"}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <>
-              <FreeConsultationModelButton onClick={openModal} />
-              <ConsultationModal isOpen={isOpen} onClose={closeModal} />
-            </>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
             >
-              {locale === "ar" ? "اتصل بنا الآن" : "Call Us Now"}
-              <Phone className="ms-2 h-5 w-5" />
-            </Button>
-            </div>
-          </div>
+              <motion.div variants={scaleIn}>
+                <FreeConsultationModelButton onClick={openModal} />
+                <ConsultationModal isOpen={isOpen} onClose={closeModal} />
+              </motion.div>
+              <motion.div
+                variants={scaleIn}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
+                >
+                  {locale === "ar" ? "اتصل بنا الآن" : "Call Us Now"}
+                  <Phone className="ms-2 h-5 w-5" />
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </section>
       </main>
       <Footer />

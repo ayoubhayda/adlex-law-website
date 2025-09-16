@@ -6,11 +6,33 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Card, CardContent } from "@/components/ui/card"
 import { FileText, Scale, AlertTriangle, CreditCard, Shield, Users, Gavel, Mail } from "lucide-react"
 import { useLocale } from "@/hooks/use-locale-context"
+import { motion } from "framer-motion"
 
 export default function TermsPage() {
   const { locale } = useLocale()
 
   const lastUpdated = "2024-01-01"
+
+  // Animation variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 40 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const scaleIn = {
+    initial: { opacity: 0, scale: 0.9 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 0.5, ease: "easeOut" }
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -201,21 +223,41 @@ export default function TermsPage() {
         <section className="py-20 bg-[#060a12] text-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
+              <motion.div 
+                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
                 <FileText className="h-8 w-8 text-accent" />
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif text-balance">
+              </motion.div>
+              <motion.h1 
+                className="text-4xl md:text-5xl font-bold mb-6 font-serif text-balance"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 {locale === "ar" ? "شروط الخدمة" : "Terms of Service"}
-              </h1>
-              <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed text-pretty">
+              </motion.h1>
+              <motion.p 
+                className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed text-pretty"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
                 {locale === "ar"
                   ? "الشروط والأحكام التي تحكم استخدام خدماتنا القانونية"
                   : "Terms and conditions governing the use of our legal services"}
-              </p>
-              <p className="text-white/80 mt-4">
+              </motion.p>
+              <motion.p 
+                className="text-white/80 mt-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
                 {locale === "ar" ? "آخر تحديث: " : "Last updated: "}
                 {formatDate(lastUpdated)}
-              </p>
+              </motion.p>
             </div>
           </div>
         </section>
@@ -224,75 +266,124 @@ export default function TermsPage() {
         <section className="py-20">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             {/* Introduction */}
-            <Card className="mb-12 border-accent/20 bg-accent/5">
-              <CardContent className="p-8">
-                <p className="text-lg text-foreground leading-relaxed text-pretty">
-                  {locale === "ar"
-                    ? "تحدد هذه الشروط والأحكام القواعد والمبادئ التي تحكم العلاقة بيننا وبين عملائنا عند تقديم الخدمات القانونية. يرجى قراءة هذه الشروط بعناية قبل استخدام خدماتنا، حيث أن استخدامك لخدماتنا يعني موافقتك على هذه الشروط."
-                    : "These terms and conditions outline the rules and principles governing the relationship between us and our clients when providing legal services. Please read these terms carefully before using our services, as your use of our services constitutes your agreement to these terms."}
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+            >
+              <Card className="mb-12 border-accent/20 bg-accent/5">
+                <CardContent className="p-8">
+                  <p className="text-lg text-foreground leading-relaxed text-pretty">
+                    {locale === "ar"
+                      ? "تحدد هذه الشروط والأحكام القواعد والمبادئ التي تحكم العلاقة بيننا وبين عملائنا عند تقديم الخدمات القانونية. يرجى قراءة هذه الشروط بعناية قبل استخدام خدماتنا، حيث أن استخدامك لخدماتنا يعني موافقتك على هذه الشروط."
+                      : "These terms and conditions outline the rules and principles governing the relationship between us and our clients when providing legal services. Please read these terms carefully before using our services, as your use of our services constitutes your agreement to these terms."}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
             {/* Terms Sections */}
-            <div className="space-y-12">
+            <motion.div 
+              className="space-y-12"
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, margin: "-100px" }}
+            >
               {sections.map((section, index) => (
-                <div key={index}>
+                <motion.div 
+                  key={index}
+                  variants={fadeInUp}
+                  whileHover={{ y: -4 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
+                    <motion.div 
+                      className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
                       <section.icon className="h-6 w-6 text-accent" />
-                    </div>
+                    </motion.div>
                     <h2 className="text-2xl font-bold text-foreground font-serif">{section.title}</h2>
                   </div>
                   <Card className="border-border">
                     <CardContent className="p-8">
-                      <div className="space-y-4">
+                      <motion.div 
+                        className="space-y-4"
+                        variants={staggerContainer}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                      >
                         {section.content.map((paragraph, paragraphIndex) => (
-                          <p key={paragraphIndex} className="text-muted-foreground leading-relaxed">
+                          <motion.p 
+                            key={paragraphIndex} 
+                            className="text-muted-foreground leading-relaxed"
+                            variants={scaleIn}
+                          >
                             {paragraph}
-                          </p>
+                          </motion.p>
                         ))}
-                      </div>
+                      </motion.div>
                     </CardContent>
                   </Card>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Contact Section */}
-            <Card className="mt-12 border-accent/20 bg-accent/5">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/20">
-                    <Mail className="h-6 w-6 text-accent" />
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <Card className="mt-12 border-accent/20 bg-accent/5">
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-4 mb-6">
+                    <motion.div 
+                      className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/20"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <Mail className="h-6 w-6 text-accent" />
+                    </motion.div>
+                    <h2 className="text-2xl font-bold text-foreground font-serif">
+                      {locale === "ar" ? "تواصل معنا" : "Contact Us"}
+                    </h2>
                   </div>
-                  <h2 className="text-2xl font-bold text-foreground font-serif">
-                    {locale === "ar" ? "تواصل معنا" : "Contact Us"}
-                  </h2>
-                </div>
-                <p className="text-foreground leading-relaxed mb-4">
-                  {locale === "ar"
-                    ? "إذا كان لديك أي أسئلة حول شروط الخدمة هذه، يرجى التواصل معنا:"
-                    : "If you have any questions about these terms of service, please contact us:"}
-                </p>
-                <div className="space-y-2 text-muted-foreground">
-                  <p>
-                    <strong>{locale === "ar" ? "البريد الإلكتروني: " : "Email: "}</strong>
-                    legal@premiumlegal.com
-                  </p>
-                  <p >
-                    <strong >{locale === "ar" ? "الهاتف: " : "Phone: "}</strong>
-                    <span dir="ltr">+966 50 123 4567</span>
-                  </p>
-                  <p>
-                    <strong>{locale === "ar" ? "العنوان: " : "Address: "}</strong>
+                  <p className="text-foreground leading-relaxed mb-4">
                     {locale === "ar"
-                      ? "شارع الملك فهد، حي العليا، الرياض 12211، المملكة العربية السعودية"
-                      : "King Fahd Road, Al Olaya District, Riyadh 12211, Saudi Arabia"}
+                      ? "إذا كان لديك أي أسئلة حول شروط الخدمة هذه، يرجى التواصل معنا:"
+                      : "If you have any questions about these terms of service, please contact us:"}
                   </p>
-                </div>
-              </CardContent>
-            </Card>
+                  <motion.div 
+                    className="space-y-2 text-muted-foreground"
+                    variants={staggerContainer}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true }}
+                  >
+                    <motion.p variants={fadeInUp}>
+                      <strong>{locale === "ar" ? "البريد الإلكتروني: " : "Email: "}</strong>
+                      legal@premiumlegal.com
+                    </motion.p>
+                    <motion.p variants={fadeInUp}>
+                      <strong>{locale === "ar" ? "الهاتف: " : "Phone: "}</strong>
+                      <span dir="ltr">+966 50 123 4567</span>
+                    </motion.p>
+                    <motion.p variants={fadeInUp}>
+                      <strong>{locale === "ar" ? "العنوان: " : "Address: "}</strong>
+                      {locale === "ar"
+                        ? "شارع الملك فهد، حي العليا، الرياض 12211، المملكة العربية السعودية"
+                        : "King Fahd Road, Al Olaya District, Riyadh 12211, Saudi Arabia"}
+                    </motion.p>
+                  </motion.div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </section>
       </main>

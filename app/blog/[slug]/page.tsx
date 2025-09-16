@@ -12,6 +12,7 @@ import { useLocale } from "@/hooks/use-locale-context"
 import { getArticleBySlug, getRelatedArticles } from "@/lib/articles"
 import Link from "next/link"
 import ServiceConsultationModelButton from "@/components/service-consultation-model-button"
+import { motion } from "framer-motion"
 
 export default function ArticlePage() {
   const params = useParams()
@@ -23,6 +24,21 @@ export default function ArticlePage() {
 
   const BackIcon = locale === "ar" ? ArrowRight : ArrowLeft
   const ForwardIcon = locale === "ar" ? ArrowLeft : ArrowRight
+
+  // Animation variants
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
 
   if (!article) {
     return (
@@ -70,25 +86,47 @@ export default function ArticlePage() {
         {/* Article Header */}
         <section className="py-12 bg-background">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <Link href="/blog">
-              <Button variant="ghost" className="mb-6 text-accent hover:text-white hover:bg-accent">
-                <BackIcon className="ml-2 h-4 w-4" />
-                {locale === "ar" ? "العودة للمدونة" : "Back to Blog"}
-              </Button>
-            </Link>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Link href="/blog">
+                <Button variant="ghost" className="mb-6 text-accent hover:text-white hover:bg-accent">
+                  <BackIcon className="ml-2 h-4 w-4" />
+                  {locale === "ar" ? "العودة للمدونة" : "Back to Blog"}
+                </Button>
+              </Link>
+            </motion.div>
 
-            <div className="space-y-6">
-              <Badge className="bg-accent text-white hover:bg-accent">{article.categoryName}</Badge>
+            <motion.div 
+              className="space-y-6"
+              variants={staggerContainer}
+              initial="initial"
+              animate="animate"
+            >
+              <motion.div variants={fadeInUp}>
+                <Badge className="bg-accent text-white hover:bg-accent">{article.categoryName}</Badge>
+              </motion.div>
 
-              <h1 className="text-4xl md:text-5xl font-bold font-serif text-balance leading-tight">
+              <motion.h1 
+                className="text-4xl md:text-5xl font-bold font-serif text-balance leading-tight"
+                variants={fadeInUp}
+              >
                 {locale === "ar" ? article.titleAr : article.titleEn}
-              </h1>
+              </motion.h1>
 
-              <p className="text-xl text-muted-foreground leading-relaxed text-pretty">
+              <motion.p 
+                className="text-xl text-muted-foreground leading-relaxed text-pretty"
+                variants={fadeInUp}
+              >
                 {locale === "ar" ? article.excerptAr : article.excerptEn}
-              </p>
+              </motion.p>
 
-              <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+              <motion.div 
+                className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground"
+                variants={fadeInUp}
+              >
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
                   {locale === "ar" ? article.authorAr : article.authorEn}
@@ -105,15 +143,18 @@ export default function ArticlePage() {
                   <BookOpen className="h-4 w-4" />
                   {locale === "ar" ? `${article.content.ar.length} كلمة` : `${article.content.en.length} words`}
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center gap-4">
+              <motion.div 
+                className="flex items-center gap-4"
+                variants={fadeInUp}
+              >
                 <Button size="sm" className="bg-accent text-white hover:bg-accent/90 hover:text-white">
                   <Share2 className="ml-2 h-4 w-4" />
                   {locale === "ar" ? "مشاركة" : "Share"}
                 </Button>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
 
@@ -121,11 +162,23 @@ export default function ArticlePage() {
         {article.image && (
           <section className="py-8">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-              <img
-                src={article.image || "/placeholder.svg"}
-                alt={locale === "ar" ? article.titleAr : article.titleEn}
-                className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
-              />
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8 }}
+                className="overflow-hidden rounded-lg"
+              >
+                <motion.img
+                  src={article.image || "/placeholder.svg"}
+                  alt={locale === "ar" ? article.titleAr : article.titleEn}
+                  className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+                  initial={{ scale: 1.1 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2 }}
+                />
+              </motion.div>
             </div>
           </section>
         )}
@@ -200,18 +253,43 @@ export default function ArticlePage() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
+          <motion.div 
+            className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
               {locale === "ar" ? "هل تحتاج استشارة قانونية؟" : "Need Legal Consultation?"}
-            </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty">
+            </motion.h2>
+            <motion.p 
+              className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               {locale === "ar"
                 ? "احصل على استشارة قانونية متخصصة من خبرائنا لحل مشاكلك القانونية"
                 : "Get specialized legal consultation from our experts to solve your legal problems"}
-            </p>
+            </motion.p>
             {/* Get Consultation Button */}
-            <ServiceConsultationModelButton />
-          </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <ServiceConsultationModelButton />
+            </motion.div>
+          </motion.div>
         </section>
       </main>
       <Footer />

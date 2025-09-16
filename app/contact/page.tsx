@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle, Building, Calendar } from "lucide-react"
 import { useLocale } from "@/hooks/use-locale-context"
 import { getTranslation } from "@/lib/i18n"
+import { motion } from "framer-motion"
 
 export default function ContactPage() {
   const { locale } = useLocale()
@@ -28,6 +29,39 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+
+  // Animation variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 40 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const fadeInLeft = {
+    initial: { opacity: 0, x: -40 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const fadeInRight = {
+    initial: { opacity: 0, x: 40 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const scaleIn = {
+    initial: { opacity: 0, scale: 0.9 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 0.5, ease: "easeOut" }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -101,7 +135,12 @@ export default function ContactPage() {
         {/* Hero Section */}
         <section className="relative py-20 text-white overflow-hidden">
           {/* Background Image */}
-          <div className="absolute inset-0">
+          <motion.div 
+            className="absolute inset-0"
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          >
             <img
               src="/elegant-law-office-banner.webp"
               alt="Professional Legal Office"
@@ -109,19 +148,29 @@ export default function ContactPage() {
             />
             <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
-          </div>
+          </motion.div>
           
           {/* Content */}
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg">
+              <motion.h1 
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 {getTranslation(locale, "contactTitle")}
-              </h1>
-              <p className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md">
+              </motion.h1>
+              <motion.p 
+                className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 {locale === "ar"
                   ? "نحن هنا لمساعدتكم. تواصلوا معنا للحصول على استشارة قانونية مهنية"
                   : "We are here to help you. Contact us for professional legal consultation"}
-              </p>
+              </motion.p>
             </div>
           </div>
         </section>
@@ -131,8 +180,20 @@ export default function ContactPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
               {/* Contact Form */}
-              <div className="lg:col-span-2">
-                <div className="mb-8">
+              <motion.div 
+                className="lg:col-span-2"
+                initial={{ opacity: 0, x: locale === "ar" ? 60 : -60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+              >
+                <motion.div 
+                  className="mb-8"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif">
                     {locale === "ar" ? "تواصل معنا" : "Get in Touch"}
                   </h2>
@@ -141,140 +202,180 @@ export default function ContactPage() {
                       ? "نحن نقدر تواصلكم معنا ونتطلع لمساعدتكم في احتياجاتكم القانونية"
                       : "We value your communication and look forward to helping you with your legal needs"}
                   </p>
-                </div>
-                <Card className="border-border/50 shadow-sm bg-card/50 backdrop-blur-sm">
-                  <CardContent className="px-8 py-4">
-                    {isSubmitted ? (
-                      <div className="text-center py-12">
-                        <div className="relative">
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-20 h-20 bg-green-500/10 rounded-full animate-pulse" />
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <Card className="border-border/50 shadow-sm bg-card/50 backdrop-blur-sm">
+                    <CardContent className="px-8 py-4">
+                      {isSubmitted ? (
+                        <motion.div 
+                          className="text-center py-12"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.6 }}
+                        >
+                          <div className="relative">
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="w-20 h-20 bg-green-500/10 rounded-full animate-pulse" />
+                            </div>
+                            <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6 relative z-10" />
                           </div>
-                          <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6 relative z-10" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-foreground mb-3 font-serif">
-                          {locale === "ar" ? "تم إرسال الرسالة بنجاح!" : "Message Sent Successfully!"}
-                        </h3>
-                        <p className="text-muted-foreground text-lg">
-                          {locale === "ar"
-                            ? "شكراً لتواصلكم معنا. سنرد عليكم قريباً."
-                            : "Thank you for contacting us. We'll get back to you soon."}
-                        </p>
-                      </div>
-                    ) : (
-                      <form onSubmit={handleSubmit} className="space-y-8">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="flex flex-col gap-3">
-                            <Label htmlFor="name" className="text-sm font-semibold text-foreground">
-                              {getTranslation(locale, "name")}
+                          <h3 className="text-2xl font-bold text-foreground mb-3 font-serif">
+                            {locale === "ar" ? "تم إرسال الرسالة بنجاح!" : "Message Sent Successfully!"}
+                          </h3>
+                          <p className="text-muted-foreground text-lg">
+                            {locale === "ar"
+                              ? "شكراً لتواصلكم معنا. سنرد عليكم قريباً."
+                              : "Thank you for contacting us. We'll get back to you soon."}
+                          </p>
+                        </motion.div>
+                      ) : (
+                        <motion.form 
+                          onSubmit={handleSubmit} 
+                          className="space-y-8"
+                          variants={staggerContainer}
+                          initial="initial"
+                          whileInView="animate"
+                          viewport={{ once: true }}
+                        >
+                          <motion.div 
+                            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                            variants={fadeInUp}
+                          >
+                            <div className="flex flex-col gap-3">
+                              <Label htmlFor="name" className="text-sm font-semibold text-foreground">
+                                {getTranslation(locale, "name")}
+                              </Label>
+                              <Input
+                                id="name"
+                                name="name"
+                                type="text"
+                                required
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                placeholder={locale === "ar" ? "اسمك الكامل" : "Your full name"}
+                                className="h-12 border-border/60 focus:border-accent transition-colors duration-200"
+                              />
+                            </div>
+                            <div className="flex flex-col gap-3">
+                              <Label htmlFor="phone" className="text-sm font-semibold text-foreground">
+                                {getTranslation(locale, "phone")}
+                              </Label>
+                              <Input
+                                id="phone"
+                                name="phone"
+                                type="tel"
+                                required
+                                value={formData.phone}
+                                onChange={handleInputChange}
+                                placeholder={locale === "ar" ? "رقم الهاتف" : "Phone number"}
+                                className="h-12 border-border/60 focus:border-accent transition-colors duration-200"
+                                dir="ltr"
+                                style={{textAlign: locale === "ar" ? "right" : "left"}}
+                              />
+                            </div>
+                          </motion.div>
+
+                          <motion.div 
+                            className="flex flex-col gap-3"
+                            variants={fadeInUp}
+                          >
+                            <Label htmlFor="email" className="text-sm font-semibold text-foreground">
+                              {getTranslation(locale, "email")}
                             </Label>
                             <Input
-                              id="name"
-                              name="name"
+                              id="email"
+                              name="email"
+                              type="email"
+                              required
+                              value={formData.email}
+                              onChange={handleInputChange}
+                              placeholder={locale === "ar" ? "بريدك الإلكتروني" : "Your email address"}
+                              className="h-12 border-border/60 focus:border-accent transition-colors duration-200"
+                            />
+                          </motion.div>
+
+                          <motion.div 
+                            className="flex flex-col gap-3"
+                            variants={fadeInUp}
+                          >
+                            <Label htmlFor="subject" className="text-sm font-semibold text-foreground">
+                              {locale === "ar" ? "موضوع الرسالة" : "Subject"}
+                            </Label>
+                            <Input
+                              id="subject"
+                              name="subject"
                               type="text"
                               required
-                              value={formData.name}
+                              value={formData.subject}
                               onChange={handleInputChange}
-                              placeholder={locale === "ar" ? "اسمك الكامل" : "Your full name"}
+                              placeholder={locale === "ar" ? "موضوع استفسارك" : "Subject of your inquiry"}
                               className="h-12 border-border/60 focus:border-accent transition-colors duration-200"
                             />
-                          </div>
-                          <div className="flex flex-col gap-3">
-                            <Label htmlFor="phone" className="text-sm font-semibold text-foreground">
-                              {getTranslation(locale, "phone")}
+                          </motion.div>
+
+                          <motion.div 
+                            className="flex flex-col gap-3"
+                            variants={fadeInUp}
+                          >
+                            <Label htmlFor="message" className="text-sm font-semibold text-foreground">
+                              {getTranslation(locale, "message")}
                             </Label>
-                            <Input
-                              id="phone"
-                              name="phone"
-                              type="tel"
+                            <Textarea
+                              id="message"
+                              name="message"
                               required
-                              value={formData.phone}
+                              rows={6}
+                              value={formData.message}
                               onChange={handleInputChange}
-                              placeholder={locale === "ar" ? "رقم الهاتف" : "Phone number"}
-                              className="h-12 border-border/60 focus:border-accent transition-colors duration-200"
-                              dir="ltr"
-                              style={{textAlign: locale === "ar" ? "right" : "left"}}
+                              placeholder={
+                                locale === "ar"
+                                  ? "اكتب رسالتك هنا... يرجى تقديم تفاصيل كافية عن استفسارك القانوني"
+                                  : "Write your message here... Please provide sufficient details about your legal inquiry"
+                              }
+                              className="border-border/60 focus:border-accent transition-colors duration-200 resize-none"
                             />
-                          </div>
-                        </div>
+                          </motion.div>
 
-                        <div className="flex flex-col gap-3">
-                          <Label htmlFor="email" className="text-sm font-semibold text-foreground">
-                            {getTranslation(locale, "email")}
-                          </Label>
-                          <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            placeholder={locale === "ar" ? "بريدك الإلكتروني" : "Your email address"}
-                            className="h-12 border-border/60 focus:border-accent transition-colors duration-200"
-                          />
-                        </div>
-
-                        <div className="flex flex-col gap-3">
-                          <Label htmlFor="subject" className="text-sm font-semibold text-foreground">
-                            {locale === "ar" ? "موضوع الرسالة" : "Subject"}
-                          </Label>
-                          <Input
-                            id="subject"
-                            name="subject"
-                            type="text"
-                            required
-                            value={formData.subject}
-                            onChange={handleInputChange}
-                            placeholder={locale === "ar" ? "موضوع استفسارك" : "Subject of your inquiry"}
-                            className="h-12 border-border/60 focus:border-accent transition-colors duration-200"
-                          />
-                        </div>
-
-                        <div className="flex flex-col gap-3">
-                          <Label htmlFor="message" className="text-sm font-semibold text-foreground">
-                            {getTranslation(locale, "message")}
-                          </Label>
-                          <Textarea
-                            id="message"
-                            name="message"
-                            required
-                            rows={6}
-                            value={formData.message}
-                            onChange={handleInputChange}
-                            placeholder={
-                              locale === "ar"
-                                ? "اكتب رسالتك هنا... يرجى تقديم تفاصيل كافية عن استفسارك القانوني"
-                                : "Write your message here... Please provide sufficient details about your legal inquiry"
-                            }
-                            className="border-border/60 focus:border-accent transition-colors duration-200 resize-none"
-                          />
-                        </div>
-
-                        <Button
-                          type="submit"
-                          size="lg"
-                          disabled={isSubmitting}
-                          className="w-full bg-accent text-white hover:bg-accent/90 transition-all duration-200 shadow-none cursor-pointer"
-                        >
-                          {isSubmitting ? (
-                            <>
-                              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3" />
-                              {locale === "ar" ? "جاري الإرسال..." : "Sending..."}
-                            </>
-                          ) : (
-                            <>
-                              {getTranslation(locale, "sendMessage")}
-                              <Send className="ml-3 h-5 w-5" />
-                            </>
-                          )}
-                        </Button>
-                      </form>
-                    )}
-                  </CardContent>
-                </Card>
+                          <motion.div variants={fadeInUp}>
+                            <Button
+                              type="submit"
+                              size="lg"
+                              disabled={isSubmitting}
+                              className="w-full bg-accent text-white hover:bg-accent/90 transition-all duration-200 shadow-none cursor-pointer"
+                            >
+                              {isSubmitting ? (
+                                <>
+                                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3" />
+                                  {locale === "ar" ? "جاري الإرسال..." : "Sending..."}
+                                </>
+                              ) : (
+                                <>
+                                  {getTranslation(locale, "sendMessage")}
+                                  <Send className="ml-3 h-5 w-5" />
+                                </>
+                              )}
+                            </Button>
+                          </motion.div>
+                        </motion.form>
+                      )}
+                    </CardContent>
+                  </Card>
+                </motion.div>
 
                 {/* Map Section - Compact */}
-                <div className="mt-8">
+                <motion.div 
+                  className="mt-8"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
                   <Card className="border-border/50 shadow-sm bg-card/50">
                     <CardHeader className="pb-4">
                       <CardTitle className="flex items-center gap-3 text-foreground text-xl font-serif">
@@ -321,101 +422,162 @@ export default function ContactPage() {
                       </div>
                     </CardContent>
                   </Card>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
               {/* Contact Information */}
-              <div className="space-y-8">
+              <motion.div 
+                className="space-y-8"
+                initial={{ opacity: 0, x: locale === "ar" ? -60 : 60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 {/* Contact Details */}
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground mb-8 font-serif">
+                  <motion.h3 
+                    className="text-2xl font-bold text-foreground mb-8 font-serif"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                  >
                     {locale === "ar" ? "معلومات التواصل" : "Contact Information"}
-                  </h3>
-                  <div className="space-y-8">
+                  </motion.h3>
+                  <motion.div 
+                    className="space-y-8"
+                    variants={staggerContainer}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true }}
+                  >
                     {contactInfo.map((info, index) => (
-                      <div key={index} className="group relative">
+                      <motion.div 
+                        key={index} 
+                        className="group relative"
+                        variants={fadeInUp}
+                        whileHover={{ y: -4 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
                         <div className="flex items-start gap-5 p-6 rounded-xl border border-border/40 bg-card/30 hover:bg-card/60 hover:border-accent/30 transition-all duration-300">
-                          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-accent/5 group-hover:bg-accent/10 border border-accent/10 group-hover:border-accent/20 transition-all duration-300">
+                          <motion.div 
+                            className="flex h-14 w-14 items-center justify-center rounded-xl bg-accent/5 group-hover:bg-accent/10 border border-accent/10 group-hover:border-accent/20 transition-all duration-300"
+                            whileHover={{ rotate: 360 }}
+                            transition={{ duration: 0.6 }}
+                          >
                             <info.icon className="h-7 w-7 text-accent group-hover:scale-110 transition-transform duration-300" />
-                          </div>
+                          </motion.div>
                           <div className="flex-1 min-w-0">
                             <h4 className="font-semibold text-foreground mb-2 text-lg">{info.title}</h4>
                             <p className="text-foreground font-medium mb-2 text-base" dir="ltr" style={{textAlign: locale === "ar" ? "right" : "left"}}>{info.value}</p>
                             <p className="text-muted-foreground text-sm leading-relaxed">{info.description}</p>
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Office Hours */}
-                <Card className="border-border/50 shadow-sm bg-card/50 backdrop-blur-sm">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="flex items-center gap-3 text-foreground text-xl font-serif">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 border border-accent/20">
-                        <Clock className="h-5 w-5 text-accent" />
-                      </div>
-                      {locale === "ar" ? "ساعات العمل" : "Office Hours"}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-4">
-                      {officeHours.map((schedule, index) => (
-                        <div 
-                          key={index} 
-                          className="flex justify-between items-center py-3 px-4 rounded-lg bg-muted/20 border border-border/30 hover:bg-muted/30 transition-colors duration-200"
-                        >
-                          <span className="text-foreground font-semibold text-sm">{schedule.day}</span>
-                          <span className={`font-medium text-sm ${
-                            schedule.hours === "مغلق" || schedule.hours === "Closed" 
-                              ? "text-red-500" 
-                              : "text-accent"
-                          }`}>
-                            {schedule.hours}
-                          </span>
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <Card className="border-border/50 shadow-sm bg-card/50 backdrop-blur-sm">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="flex items-center gap-3 text-foreground text-xl font-serif">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 border border-accent/20">
+                          <Clock className="h-5 w-5 text-accent" />
                         </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                        {locale === "ar" ? "ساعات العمل" : "Office Hours"}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <motion.div 
+                        className="space-y-4"
+                        variants={staggerContainer}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                      >
+                        {officeHours.map((schedule, index) => (
+                          <motion.div 
+                            key={index} 
+                            className="flex justify-between items-center py-3 px-4 rounded-lg bg-muted/20 border border-border/30 hover:bg-muted/30 transition-colors duration-200"
+                            variants={scaleIn}
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            <span className="text-foreground font-semibold text-sm">{schedule.day}</span>
+                            <span className={`font-medium text-sm ${
+                              schedule.hours === "مغلق" || schedule.hours === "Closed" 
+                                ? "text-red-500" 
+                                : "text-accent"
+                            }`}>
+                              {schedule.hours}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
 
                 {/* Quick Actions */}
-                <Card className="border-accent/30 bg-gradient-to-br from-accent/2 to-accent/5 shadow-none">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="flex items-center gap-3 text-foreground text-xl font-serif">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/20 border border-accent/30">
-                        <Calendar className="h-5 w-5 text-accent" />
-                      </div>
-                      {locale === "ar" ? "احجز استشارة" : "Book Consultation"}
-                    </CardTitle>
-                    <CardDescription className="text-muted-foreground text-base">
-                      {locale === "ar"
-                        ? "احصل على استشارة قانونية مجانية لمدة 30 دقيقة"
-                        : "Get a free 30-minute legal consultation"}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-4">
-                      {/* Book Appointment Button */}
-                      <Button 
-                        onClick={() => setIsBookingModalOpen(true)}
-                        className="w-full h-12 bg-accent text-white hover:bg-accent/90 font-semibold transition-all duration-200 shadow-none cursor-pointer"
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <Card className="border-accent/30 bg-gradient-to-br from-accent/2 to-accent/5 shadow-none">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="flex items-center gap-3 text-foreground text-xl font-serif">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/20 border border-accent/30">
+                          <Calendar className="h-5 w-5 text-accent" />
+                        </div>
+                        {locale === "ar" ? "احجز استشارة" : "Book Consultation"}
+                      </CardTitle>
+                      <CardDescription className="text-muted-foreground text-base">
+                        {locale === "ar"
+                          ? "احصل على استشارة قانونية مجانية لمدة 30 دقيقة"
+                          : "Get a free 30-minute legal consultation"}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <motion.div 
+                        className="space-y-4"
+                        variants={staggerContainer}
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
                       >
-                        <Calendar className="mr-3 h-5 w-5" />
-                        {locale === "ar" ? "احجز موعد" : "Book Appointment"}
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full h-12 border-green-500/40 dark:border-green-500/40 da text-green-500 hover:bg-accent hover:border-accent hover:text-white bg-transparent font-semibold transition-all duration-200 shadow-none cursor-pointer"
-                      >
-                        <MessageCircle className="mr-3 h-5 w-5" />
-                        {locale === "ar" ? "تواصل عبر واتساب" : "Contact via WhatsApp"}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                        {/* Book Appointment Button */}
+                        <motion.div variants={scaleIn}>
+                          <Button 
+                            onClick={() => setIsBookingModalOpen(true)}
+                            className="w-full h-12 bg-accent text-white hover:bg-accent/90 font-semibold transition-all duration-200 shadow-none cursor-pointer"
+                          >
+                            <Calendar className="mr-3 h-5 w-5" />
+                            {locale === "ar" ? "احجز موعد" : "Book Appointment"}
+                          </Button>
+                        </motion.div>
+                        <motion.div variants={scaleIn}>
+                          <Button
+                            variant="outline"
+                            className="w-full h-12 border-green-500/40 dark:border-green-500/40 da text-green-500 hover:bg-accent hover:border-accent hover:text-white bg-transparent font-semibold transition-all duration-200 shadow-none cursor-pointer"
+                          >
+                            <MessageCircle className="mr-3 h-5 w-5" />
+                            {locale === "ar" ? "تواصل عبر واتساب" : "Contact via WhatsApp"}
+                          </Button>
+                        </motion.div>
+                      </motion.div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </section>
