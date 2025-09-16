@@ -82,7 +82,7 @@ export function Navbar() {
                       className="text-xl lg:text-2xl font-bold text-foreground tracking-widest leading-none uppercase"
                       style={{ fontFamily: "Orbitron, monospace" }}
                     >
-                      ADL<span className="text-accent">EX</span>
+                      AD<span className="text-accent">EX</span>
                     </span>
                     <span className="text-[9px] lg:text-[10px] text-muted-foreground font-medium tracking-[0.2em] mt-1 uppercase">
                       Legal Counsel

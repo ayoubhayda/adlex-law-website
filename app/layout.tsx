@@ -24,8 +24,8 @@ const cairo = Cairo({
 
 export const metadata: Metadata = {
   title: {
-    default: "Adlex Law - Premium Legal Services | Expert Legal Consultation",
-    template: "%s | Adlex Law - Professional Legal Services"
+    default: "Adex Law - Premium Legal Services | Expert Legal Consultation",
+    template: "%s | Adex Law - Professional Legal Services"
   },
   description: "Leading law firm providing expert legal consultation and representation in Arabic and English. Specializing in corporate law, civil litigation, family law, and legal advisory services. Professional, trusted, and results-driven legal solutions.",
   keywords: [
@@ -45,15 +45,15 @@ export const metadata: Metadata = {
     "legal expert",
     "legal advisory"
   ],
-  authors: [{ name: "Adlex Law Firm" }],
-  creator: "Adlex Law",
-  publisher: "Adlex Law",
+  authors: [{ name: "Adex Law Firm" }],
+  creator: "Adex Law",
+  publisher: "Adex Law",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://adlex-law.vercel.app'),
+  metadataBase: new URL('https://adex-law.vercel.app'),
   alternates: {
     canonical: '/',
     languages: {
@@ -64,26 +64,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://adlex-law.vercel.app',
-    title: 'Adlex Law - Premium Legal Services | Expert Legal Consultation',
+    url: 'https://adex-law.vercel.app',
+    title: 'Adex Law - Premium Legal Services | Expert Legal Consultation',
     description: 'Leading law firm providing expert legal consultation and representation in Arabic and English. Professional, trusted, and results-driven legal solutions.',
-    siteName: 'Adlex Law',
+    siteName: 'Adex Law',
     images: [
       {
-        url: '/Adlex-Law-Premium-Legal-Services-Expert-Legal-Consultation.webp',
+        url: '/Adex-Law-Premium-Legal-Services-Expert-Legal-Consultation.webp',
         width: 1200,
         height: 630,
-        alt: 'Adlex Law - Professional Legal Services',
+        alt: 'Adex Law - Professional Legal Services',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Adlex Law - Premium Legal Services | Expert Legal Consultation',
+    title: 'Adex Law - Premium Legal Services | Expert Legal Consultation',
     description: 'Leading law firm providing expert legal consultation and representation in Arabic and English. Professional, trusted, and results-driven legal solutions.',
-    images: ['/Adlex-Law-Premium-Legal-Services-Expert-Legal-Consultation.webp'],
-    creator: '@adlexlaw',
-    site: '@adlexlaw',
+    images: ['/Adex-Law-Premium-Legal-Services-Expert-Legal-Consultation.webp'],
+    creator: '@adexlaw',
+    site: '@adexlaw',
   },
   robots: {
     index: true,

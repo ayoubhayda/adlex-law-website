@@ -44,7 +44,7 @@ export function Footer() {
                   <div className="w-7 h-7 flex items-center justify-center">
                     <Image
                       src={darkLogo}
-                      alt="Adlex Logo"
+                      alt="Adex Logo"
                       width={28}
                       height={28}
                       className="w-7 h-7"
@@ -69,7 +69,7 @@ export function Footer() {
                     className="text-xl font-bold text-white tracking-widest leading-none uppercase"
                     style={{ fontFamily: "Orbitron, monospace" }}
                   >
-                    ADL<span className="text-accent">EX</span>
+                    AD<span className="text-accent">EX</span>
                   </span>
                   <span className="text-[10px] text-white/60 font-medium tracking-[0.2em] mt-1 uppercase">
                     Legal Counsel
@@ -180,7 +180,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-zinc-700 text-white/20">
           <p className="text-center text-white/60 text-xs md:text-sm">
-            © {currentYear} {locale === "ar" ? "أديـكس" : "ADLEX"}.{" "}
+            © {currentYear} {locale === "ar" ? "أديـكس" : "ADEX"}.{" "}
             {getTranslation(locale, "copyright")}
           </p>
         </div>
