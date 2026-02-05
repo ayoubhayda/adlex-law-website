@@ -23,7 +23,7 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "Adex | Professional Law Firm Website (Next.js)",
+  title: "Adex | Professional Law Firm Website",
   description:
     "Adex is a modern, responsive law firm website featuring consultation booking, dark mode, multilingual support, and SEO optimization. Built with Next.js, TypeScript, and Tailwind CSS.",
 
