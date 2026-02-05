@@ -1,80 +1,88 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { useLocale } from "@/hooks/use-locale-context"
-import { MessageCircle, X, User, CheckCircle } from "lucide-react"
+import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useLocale } from "@/hooks/use-locale-context";
+import { MessageCircle, X, User, CheckCircle } from "lucide-react";
 
 interface ConsultationModalProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
-  const { locale } = useLocale()
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const { locale } = useLocale();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     legalIssue: "",
     message: "",
-  })
+  });
 
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    checkIsMobile()
-    window.addEventListener('resize', checkIsMobile)
-    
-    return () => window.removeEventListener('resize', checkIsMobile)
-  }, [])
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle form submission here
-    console.log("Consultation form submitted:", formData)
-    setIsSubmitted(true)
+    console.log("Consultation form submitted:", formData);
+    setIsSubmitted(true);
 
     // Reset form after 3 seconds and close modal
     setTimeout(() => {
-      setIsSubmitted(false)
+      setIsSubmitted(false);
       setFormData({
         name: "",
         email: "",
         phone: "",
         legalIssue: "",
         message: "",
-      })
-      onClose()
-    }, 3000)
-  }
+      });
+      onClose();
+    }, 3000);
+  };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
-  const isFormValid = formData.name && formData.email && formData.phone
+  const isFormValid = formData.name && formData.email && formData.phone;
 
   if (isSubmitted) {
     return (
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className={`
+      <Dialog open={isOpen && !isMobile} onOpenChange={onClose}>
+        <DialogContent
+          className={`
           [&>button]:hidden
-          ${isMobile 
-            ? "fixed bottom-0 left-0 right-0 top-auto translate-x-0 translate-y-0 rounded-t-2xl rounded-b-none border-t data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom max-w-full w-full" 
-            : "sm:max-w-md"
+          ${
+            isMobile
+              ? "fixed bottom-0 left-0 right-0 top-auto translate-x-0 translate-y-0 rounded-t-2xl rounded-b-none border-t data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom max-w-full w-full"
+              : "sm:max-w-md"
           }
-        `}>
+        `}
+        >
           <div className="text-center py-8 px-6">
             <div className="relative mx-auto mb-6">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800/30">
@@ -83,7 +91,9 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
               <div className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-green-500 animate-ping" />
             </div>
             <h3 className="text-xl font-semibold text-foreground mb-3">
-              {locale === "ar" ? "تم إرسال طلبكم بنجاح!" : "Request Submitted Successfully!"}
+              {locale === "ar"
+                ? "تم إرسال طلبكم بنجاح!"
+                : "Request Submitted Successfully!"}
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto mb-4">
               {locale === "ar"
@@ -93,33 +103,40 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
             <div className="pt-4 border-t border-border/50">
               <p className="text-xs text-muted-foreground">
                 {locale === "ar" ? "رقم المرجع: " : "Reference ID: "}
-                <span className="font-mono text-accent">#{Date.now().toString().slice(-6)}</span>
+                <span className="font-mono text-accent">
+                  #{Date.now().toString().slice(-6)}
+                </span>
               </p>
             </div>
           </div>
         </DialogContent>
       </Dialog>
-    )
+    );
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`
+    <Dialog open={isOpen && !isMobile} onOpenChange={onClose}>
+      <DialogContent
+        className={`
         overflow-hidden p-0 [&>button]:hidden
-        ${isMobile 
-          ? "fixed bottom-0 left-0 right-0 top-auto translate-x-0 translate-y-0 rounded-t-2xl rounded-b-none border-t data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom max-w-full w-full max-h-[90vh] overflow-y-auto" 
-          : "sm:max-w-2xl max-h-[85vh]"
+        ${
+          isMobile
+            ? "fixed bottom-0 left-0 right-0 top-auto translate-x-0 translate-y-0 rounded-t-2xl rounded-b-none border-t data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom max-w-full w-full max-h-[90vh] overflow-y-auto"
+            : "sm:max-w-2xl max-h-[85vh]"
         }
-      `}>
+      `}
+      >
         {/* Mobile Drawer Handle */}
         {isMobile && (
           <div className="flex justify-center pt-3 pb-2">
             <div className="w-12 h-1 bg-muted-foreground/30 rounded-full" />
           </div>
         )}
-        
+
         {/* Header Section */}
-        <div className={`border-b border-border/50 ${isMobile ? 'p-4 pb-3' : 'p-6 pb-4'}`}>
+        <div
+          className={`border-b border-border/50 ${isMobile ? "p-4 pb-3" : "p-6 pb-4"}`}
+        >
           {isMobile ? (
             /* Minimal Mobile Header */
             <div className="flex items-center justify-between">
@@ -144,10 +161,14 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                 </div>
                 <div>
                   <DialogTitle className="text-xl font-semibold text-foreground">
-                    {locale === "ar" ? "احصل على استشارتك المجانية اليوم" : "Get Your Free Consultation Today"}
+                    {locale === "ar"
+                      ? "احصل على استشارتك المجانية اليوم"
+                      : "Get Your Free Consultation Today"}
                   </DialogTitle>
                   <p className="text-sm text-muted-foreground">
-                    {locale === "ar" ? "مشورة قانونية خبيرة مصممة لاحتياجاتك" : "Expert legal advice tailored to your needs"}
+                    {locale === "ar"
+                      ? "مشورة قانونية خبيرة مصممة لاحتياجاتك"
+                      : "Expert legal advice tailored to your needs"}
                   </p>
                 </div>
               </div>
@@ -164,7 +185,7 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
         </div>
 
         {/* Form Content */}
-        <div className={`flex-1 p-6 ${isMobile ? 'overflow-y-auto' : ''}`}>
+        <div className={`flex-1 p-6 ${isMobile ? "overflow-y-auto" : ""}`}>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Personal Information */}
             <div className="space-y-4">
@@ -175,16 +196,25 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                 </h3>
               </div>
 
-              <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
+              <div
+                className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}
+              >
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="name" className="text-sm font-medium text-foreground">
+                  <Label
+                    htmlFor="name"
+                    className="text-sm font-medium text-foreground"
+                  >
                     {locale === "ar" ? "الاسم الكامل" : "Full Name"} *
                   </Label>
                   <Input
                     id="name"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
-                    placeholder={locale === "ar" ? "أدخل اسمكم الكامل" : "Enter your full name"}
+                    placeholder={
+                      locale === "ar"
+                        ? "أدخل اسمكم الكامل"
+                        : "Enter your full name"
+                    }
                     className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 text-start rtl:text-right"
                     dir={locale === "ar" ? "rtl" : "ltr"}
                     required
@@ -192,7 +222,10 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-foreground">
+                  <Label
+                    htmlFor="email"
+                    className="text-sm font-medium text-foreground"
+                  >
                     {locale === "ar" ? "البريد الإلكتروني" : "Email Address"} *
                   </Label>
                   <Input
@@ -200,7 +233,11 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    placeholder={locale === "ar" ? "أدخل بريدكم الإلكتروني" : "Enter your email address"}
+                    placeholder={
+                      locale === "ar"
+                        ? "أدخل بريدكم الإلكتروني"
+                        : "Enter your email address"
+                    }
                     className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 text-start rtl:text-right"
                     dir={locale === "ar" ? "rtl" : "ltr"}
                     required
@@ -208,9 +245,14 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                 </div>
               </div>
 
-              <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
+              <div
+                className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}
+              >
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="phone" className="text-sm font-medium text-foreground">
+                  <Label
+                    htmlFor="phone"
+                    className="text-sm font-medium text-foreground"
+                  >
                     {locale === "ar" ? "رقم الهاتف" : "Phone Number"} *
                   </Label>
                   <Input
@@ -218,7 +260,11 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                    placeholder={locale === "ar" ? "أدخل رقم هاتفكم" : "Enter your phone number"}
+                    placeholder={
+                      locale === "ar"
+                        ? "أدخل رقم هاتفكم"
+                        : "Enter your phone number"
+                    }
                     className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 text-start rtl:text-right"
                     dir={locale === "ar" ? "rtl" : "ltr"}
                     required
@@ -226,14 +272,25 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="legalIssue" className="text-sm font-medium text-foreground">
-                    {locale === "ar" ? "نوع القضية القانونية" : "Legal Issue Type"}
+                  <Label
+                    htmlFor="legalIssue"
+                    className="text-sm font-medium text-foreground"
+                  >
+                    {locale === "ar"
+                      ? "نوع القضية القانونية"
+                      : "Legal Issue Type"}
                   </Label>
                   <Input
                     id="legalIssue"
                     value={formData.legalIssue}
-                    onChange={(e) => handleInputChange("legalIssue", e.target.value)}
-                    placeholder={locale === "ar" ? "مثال: قانون الأسرة، قانون الأعمال" : "e.g., Family Law, Business Law"}
+                    onChange={(e) =>
+                      handleInputChange("legalIssue", e.target.value)
+                    }
+                    placeholder={
+                      locale === "ar"
+                        ? "مثال: قانون الأسرة، قانون الأعمال"
+                        : "e.g., Family Law, Business Law"
+                    }
                     className="h-10 border-border/50 focus:border-accent/50 focus:ring-accent/20 transition-all duration-200 text-start rtl:text-right"
                     dir={locale === "ar" ? "rtl" : "ltr"}
                   />
@@ -241,8 +298,13 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
               </div>
 
               <div className="flex flex-col gap-2">
-                <Label htmlFor="message" className="text-sm font-medium text-foreground">
-                  {locale === "ar" ? "اوصف مسألتك القانونية" : "Describe Your Legal Matter"}
+                <Label
+                  htmlFor="message"
+                  className="text-sm font-medium text-foreground"
+                >
+                  {locale === "ar"
+                    ? "اوصف مسألتك القانونية"
+                    : "Describe Your Legal Matter"}
                 </Label>
                 <Textarea
                   id="message"
@@ -258,7 +320,7 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                   dir={locale === "ar" ? "rtl" : "ltr"}
                 />
                 <p className="text-xs text-muted-foreground">
-                  {locale === "ar" 
+                  {locale === "ar"
                     ? "كلما كانت التفاصيل أكثر، كلما استطعنا مساعدتكم بشكل أفضل"
                     : "The more details you provide, the better we can assist you"}
                 </p>
@@ -274,12 +336,14 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
                   className="flex-1 h-10 bg-accent text-white hover:bg-accent/90 transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <MessageCircle className="mr-2 h-4 w-4" />
-                  {locale === "ar" ? "جدولة الاستشارة" : "Schedule Consultation"}
+                  {locale === "ar"
+                    ? "جدولة الاستشارة"
+                    : "Schedule Consultation"}
                 </Button>
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={onClose} 
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={onClose}
                   className="h-10 px-6 border-border/50 hover:border-accent/50 hover:text-white transition-all duration-200"
                 >
                   {locale === "ar" ? "إلغاء" : "Cancel"}
@@ -290,5 +354,5 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

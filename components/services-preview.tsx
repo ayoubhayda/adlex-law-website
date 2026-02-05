@@ -1,16 +1,25 @@
-"use client"
+"use client";
 
-import { ServiceCard } from "@/components/service-card"
-import { Button } from "@/components/ui/button"
-import { Users, Home, Briefcase, Shield, ArrowRight, ArrowLeft } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale-context"
-import { getTranslation } from "@/lib/i18n"
-import Link from "next/link"
+import { ServiceCard } from "@/components/service-card";
+import { SectionBadge } from "@/components/section-badge";
+import { Button } from "@/components/ui/button";
+import {
+  Users,
+  Home,
+  Briefcase,
+  Shield,
+  ArrowRight,
+  ArrowLeft,
+  Scale,
+} from "lucide-react";
+import { useLocale } from "@/hooks/use-locale-context";
+import { getTranslation } from "@/lib/i18n";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export function ServicesPreview() {
-  const { locale } = useLocale()
-  const ArrowIcon = locale === "ar" ? ArrowLeft : ArrowRight
+  const { locale } = useLocale();
+  const ArrowIcon = locale === "ar" ? ArrowLeft : ArrowRight;
 
   const services = [
     {
@@ -20,7 +29,7 @@ export function ServicesPreview() {
         locale === "ar"
           ? "استشارات شاملة في قضايا الأسرة والزواج والطلاق وحضانة الأطفال"
           : "Comprehensive consultation on family matters, marriage, divorce, and child custody",
-          slug: "family-law",
+      slug: "family-law",
     },
     {
       icon: Home,
@@ -29,7 +38,7 @@ export function ServicesPreview() {
         locale === "ar"
           ? "خدمات قانونية متكاملة في المعاملات العقارية والاستثمار العقاري"
           : "Complete legal services for real estate transactions and property investment",
-          slug: "real-estate",
+      slug: "real-estate",
     },
     {
       icon: Briefcase,
@@ -38,7 +47,7 @@ export function ServicesPreview() {
         locale === "ar"
           ? "استشارات قانونية للشركات والعقود التجارية والاستثمار"
           : "Legal consultation for companies, commercial contracts, and investment",
-          slug: "business-law",
+      slug: "business-law",
     },
     {
       icon: Shield,
@@ -47,9 +56,9 @@ export function ServicesPreview() {
         locale === "ar"
           ? "تمثيل قانوني قوي في القضايا الجنائية وحماية الحقوق"
           : "Strong legal representation in criminal cases and rights protection",
-          slug: "criminal-defense",
+      slug: "criminal-defense",
     },
-  ]
+  ];
 
   // Animation variants
   const containerVariants = {
@@ -70,7 +79,6 @@ export function ServicesPreview() {
       y: 0,
       transition: {
         duration: 0.6,
-    
       },
     },
   };
@@ -82,7 +90,6 @@ export function ServicesPreview() {
       y: 0,
       transition: {
         duration: 0.8,
-    
       },
     },
   };
@@ -95,7 +102,6 @@ export function ServicesPreview() {
       scale: 1,
       transition: {
         duration: 0.6,
-    
       },
     },
   };
@@ -108,16 +114,15 @@ export function ServicesPreview() {
       transition: {
         duration: 0.6,
         delay: 0.8,
-    
       },
     },
   };
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-12 sm:py-16 lg:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 lg:mb-16"
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -146,7 +151,7 @@ export function ServicesPreview() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 mb-10 sm:mb-12"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -180,18 +185,33 @@ export function ServicesPreview() {
           whileInView="visible"
           viewport={{ once: true }}
         >
+          {/* Mobile CTA Button */}
+          <motion.div>
+            <Link href="/services">
+              <Button
+                variant="outline"
+                className="group border-accent dark:border-border dark:hover:border-accent text-accent hover:bg-accent hover:text-white bg-transparent transition-all duration-300 cursor-pointer shadow-none sm:hidden"
+              >
+                {locale === "ar" ? "عرض جميع الخدمات" : "View All Services"}
+                <ArrowIcon className="ms-2 group-hover:translate-x-1 transition-transform duration-300" />
+              </Button>
+            </Link>
+          </motion.div>
+
+          {/* Desktop CTA Button */}
           <motion.div
             whileHover={{
               scale: 1.05,
               transition: { type: "spring", stiffness: 400, damping: 17 },
             }}
             whileTap={{ scale: 0.95 }}
+            className="flex justify-center"
           >
             <Link href="/services">
               <Button
                 variant="outline"
                 size="lg"
-                className="border-accent text-accent hover:bg-accent hover:text-white dark:hover:bg-accent dark:border-border bg-transparent transition-all cursor-pointer"
+                className="border-accent text-accent hover:bg-accent hover:text-white dark:hover:bg-accent dark:border-border bg-transparent transition-all cursor-pointer hidden sm:flex"
               >
                 {locale === "ar" ? "عرض جميع الخدمات" : "View All Services"}
                 <motion.div
@@ -210,5 +230,5 @@ export function ServicesPreview() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

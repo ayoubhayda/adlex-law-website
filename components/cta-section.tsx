@@ -38,7 +38,6 @@ export function CTASection() {
       y: 0,
       transition: {
         duration: 0.6,
-
       },
     },
   };
@@ -50,14 +49,12 @@ export function CTASection() {
       scale: 1,
       transition: {
         duration: 0.5,
-
       },
     },
     hover: {
       scale: 1.05,
       transition: {
         duration: 0.2,
-        
       },
     },
   };
@@ -69,14 +66,12 @@ export function CTASection() {
       y: 0,
       transition: {
         duration: 0.6,
-
       },
     },
     hover: {
       y: -5,
       transition: {
         duration: 0.3,
-        
       },
     },
   };
@@ -87,16 +82,26 @@ export function CTASection() {
       rotate: 5,
       transition: {
         duration: 0.3,
-        
+      },
+    },
+  };
+
+  const mobileIconVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4,
       },
     },
   };
 
   return (
-    <section className="py-20 bg-[#060a12] text-white relative overflow-hidden">
-      {/* Background Pattern */}
+    <section className="py-12 md:py-20 bg-gradient-to-b from-[#0a1628] via-[#0d1a2d] to-[#060a12] text-white relative overflow-hidden">
+      {/* Background Pattern - Hidden on mobile for cleaner look */}
       <motion.div
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0 opacity-10 hidden md:block"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.1 }}
         transition={{ duration: 1, delay: 0.5 }}
@@ -117,107 +122,187 @@ export function CTASection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance"
-            variants={itemVariants}
-          >
-            {locale === "ar"
-              ? "هل تحتاج إلى استشارة قانونية؟"
-              : "Need Legal Consultation?"}
-          </motion.h2>
-          
-          <motion.p
-            className="text-xl text-white/90 mb-8 leading-relaxed text-pretty"
-            variants={itemVariants}
-          >
-            {locale === "ar"
-              ? "لا تتردد في التواصل معنا للحصول على استشارة قانونية مهنية. نحن هنا لمساعدتكم في جميع احتياجاتكم القانونية."
-              : "Don't hesitate to contact us for professional legal consultation. We are here to help you with all your legal needs."}
-          </motion.p>
+          {/* Mobile Layout */}
+          <div className="md:hidden">
+            <motion.h2
+              className="text-2xl font-bold mb-3 font-serif"
+              variants={itemVariants}
+            >
+              {locale === "ar"
+                ? "هل تحتاج إلى استشارة قانونية؟"
+                : "Need Legal Consultation?"}
+            </motion.h2>
 
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
-            variants={itemVariants}
-          >
-            {/* Book Free Consultation Button */}
-            <motion.div variants={buttonVariants} whileHover="hover">
+            <motion.p
+              className="text-sm text-white/80 mb-6 leading-relaxed max-w-xs mx-auto"
+              variants={itemVariants}
+            >
+              {locale === "ar"
+                ? "تواصل معنا الآن للحصول على استشارة قانونية مهنية"
+                : "Contact us now for professional legal consultation"}
+            </motion.p>
+
+            {/* Mobile CTA Button */}
+            <motion.div variants={buttonVariants} className="mb-8">
               <FreeConsultationModelButton onClick={openModal} />
               <ConsultationModal isOpen={isOpen} onClose={closeModal} />
             </motion.div>
-            
-            <motion.div variants={buttonVariants} whileHover="hover">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
-              >
-                {locale === "ar" ? "اتصل بنا الآن" : "Call Us Now"}
-                <Phone className="ms-2 h-5 w-5" />
-              </Button>
-            </motion.div>
-          </motion.div>
 
-          {/* Contact Methods */}
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
-            variants={containerVariants}
-          >
+            {/* Mobile Contact Icons - Horizontal Row */}
             <motion.div
-              className="text-center"
-              variants={contactCardVariants}
-              whileHover="hover"
+              className="flex justify-center items-center gap-6"
+              variants={containerVariants}
+            >
+              <motion.a
+                href="tel:+966501234567"
+                className="group flex flex-col items-center gap-2"
+                variants={mobileIconVariants}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/20 border border-accent/30 transition-all duration-300 group-active:bg-accent/30">
+                  <Phone className="h-5 w-5 text-accent" />
+                </div>
+                <span className="text-xs text-white/70">
+                  {locale === "ar" ? "اتصال" : "Call"}
+                </span>
+              </motion.a>
+
+              <motion.a
+                href="mailto:info@premiumlegal.com"
+                className="group flex flex-col items-center gap-2"
+                variants={mobileIconVariants}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/20 border border-accent/30 transition-all duration-300 group-active:bg-accent/30">
+                  <Mail className="h-5 w-5 text-accent" />
+                </div>
+                <span className="text-xs text-white/70">
+                  {locale === "ar" ? "إيميل" : "Email"}
+                </span>
+              </motion.a>
+
+              <motion.a
+                href="https://wa.me/966501234567"
+                className="group flex flex-col items-center gap-2"
+                variants={mobileIconVariants}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/20 border border-accent/30 transition-all duration-300 group-active:bg-accent/30">
+                  <MessageCircle className="h-5 w-5 text-accent" />
+                </div>
+                <span className="text-xs text-white/70">
+                  {locale === "ar" ? "واتساب" : "WhatsApp"}
+                </span>
+              </motion.a>
+            </motion.div>
+          </div>
+
+          {/* Desktop Layout - Original Design */}
+          <div className="hidden md:block">
+            <motion.h2
+              className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance"
+              variants={itemVariants}
+            >
+              {locale === "ar"
+                ? "هل تحتاج إلى استشارة قانونية؟"
+                : "Need Legal Consultation?"}
+            </motion.h2>
+
+            <motion.p
+              className="text-xl text-white/90 mb-8 leading-relaxed text-pretty"
+              variants={itemVariants}
+            >
+              {locale === "ar"
+                ? "لا تتردد في التواصل معنا للحصول على استشارة قانونية مهنية. نحن هنا لمساعدتكم في جميع احتياجاتكم القانونية."
+                : "Don't hesitate to contact us for professional legal consultation. We are here to help you with all your legal needs."}
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+              variants={itemVariants}
+            >
+              {/* Book Free Consultation Button */}
+              <motion.div variants={buttonVariants} whileHover="hover">
+                <FreeConsultationModelButton onClick={openModal} />
+                <ConsultationModal isOpen={isOpen} onClose={closeModal} />
+              </motion.div>
+
+              <motion.div variants={buttonVariants} whileHover="hover">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-zinc-700 dark:border-zinc-700 text-white hover:border-accent dark:hover:border-accent hover:text-accent bg-transparent hover:bg-transparent"
+                >
+                  {locale === "ar" ? "اتصل بنا الآن" : "Call Us Now"}
+                  <Phone className="ms-2 h-5 w-5" />
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Contact Methods */}
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+              variants={containerVariants}
             >
               <motion.div
-                className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20"
+                className="text-center"
+                variants={contactCardVariants}
                 whileHover="hover"
-                variants={iconVariants}
               >
-                <Phone className="h-8 w-8 text-accent" />
+                <motion.div
+                  className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20"
+                  whileHover="hover"
+                  variants={iconVariants}
+                >
+                  <Phone className="h-8 w-8 text-accent" />
+                </motion.div>
+                <h3 className="font-semibold mb-2">
+                  {locale === "ar" ? "اتصل بنا" : "Call Us"}
+                </h3>
+                <p className="text-white/80" dir="ltr">
+                  +966 50 123 4567
+                </p>
               </motion.div>
-              <h3 className="font-semibold mb-2">
-                {locale === "ar" ? "اتصل بنا" : "Call Us"}
-              </h3>
-              <p className="text-white/80" dir="ltr">+966 50 123 4567</p>
-            </motion.div>
 
-            <motion.div
-              className="text-center"
-              variants={contactCardVariants}
-              whileHover="hover"
-            >
               <motion.div
-                className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20"
+                className="text-center"
+                variants={contactCardVariants}
                 whileHover="hover"
-                variants={iconVariants}
               >
-                <Mail className="h-8 w-8 text-accent" />
+                <motion.div
+                  className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20"
+                  whileHover="hover"
+                  variants={iconVariants}
+                >
+                  <Mail className="h-8 w-8 text-accent" />
+                </motion.div>
+                <h3 className="font-semibold mb-2">
+                  {locale === "ar" ? "راسلنا" : "Email Us"}
+                </h3>
+                <p className="text-white/80">info@premiumlegal.com</p>
               </motion.div>
-              <h3 className="font-semibold mb-2">
-                {locale === "ar" ? "راسلنا" : "Email Us"}
-              </h3>
-              <p className="text-white/80">info@premiumlegal.com</p>
-            </motion.div>
 
-            <motion.div
-              className="text-center"
-              variants={contactCardVariants}
-              whileHover="hover"
-            >
               <motion.div
-                className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20"
+                className="text-center"
+                variants={contactCardVariants}
                 whileHover="hover"
-                variants={iconVariants}
               >
-                <MessageCircle className="h-8 w-8 text-accent" />
+                <motion.div
+                  className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/20"
+                  whileHover="hover"
+                  variants={iconVariants}
+                >
+                  <MessageCircle className="h-8 w-8 text-accent" />
+                </motion.div>
+                <h3 className="font-semibold mb-2">
+                  {locale === "ar" ? "واتساب" : "WhatsApp"}
+                </h3>
+                <p className="text-white/80">
+                  {locale === "ar" ? "متاح 24/7" : "Available 24/7"}
+                </p>
               </motion.div>
-              <h3 className="font-semibold mb-2">
-                {locale === "ar" ? "واتساب" : "WhatsApp"}
-              </h3>
-              <p className="text-white/80">
-                {locale === "ar" ? "متاح 24/7" : "Available 24/7"}
-              </p>
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -75,6 +75,34 @@ export function HeroSection() {
     },
   };
 
+  // Stats data for cleaner code
+  const statsData = [
+    {
+      value: "15+",
+      labelAr: "سنوات خبرة",
+      labelEn: "Years Experience",
+      delay: 0.8,
+    },
+    {
+      value: "500+",
+      labelAr: "عميل راضي",
+      labelEn: "Happy Clients",
+      delay: 0.9,
+    },
+    {
+      value: "95%",
+      labelAr: "معدل النجاح",
+      labelEn: "Success Rate",
+      delay: 1.0,
+    },
+    {
+      value: "24/7",
+      labelAr: "دعم متاح",
+      labelEn: "Support Available",
+      delay: 1.1,
+    },
+  ];
+
   return (
     <section className="relative h-[calc(100vh-64px)] lg:h-[calc(100vh-72px)] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -101,13 +129,13 @@ export function HeroSection() {
       >
         <div className="max-w-4xl mx-auto">
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 font-serif text-balance"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 md:mb-6 font-serif text-balance"
             variants={titleVariants}
           >
             {locale === "ar" ? (
               <>
                 <motion.span
-                  className="block text-white mb-3"
+                  className="block text-white mb-2 md:mb-3"
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -126,7 +154,7 @@ export function HeroSection() {
             ) : (
               <>
                 <motion.span
-                  className="block text-white mb-3"
+                  className="block text-white mb-2 md:mb-3"
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -145,18 +173,28 @@ export function HeroSection() {
             )}
           </motion.h1>
 
+          {/* hero subtitle */}
           <motion.p
-            className="text-xl md:text-2xl  text-white mb-8 leading-relaxed text-pretty"
+            className="text-white/90 mb-6 md:mb-8 leading-relaxed text-pretty max-w-2xl mx-auto"
             variants={itemVariants}
           >
-            {locale === "ar"
-              ? "خدمات قانونية مهنية بنزاهة وتفان لحماية حقوقكم وتحقيق العدالة"
-              : "Professional legal services with integrity and dedication to protect your rights and achieve justice"}
+            {/* Mobile: Short subtitle */}
+            <span className="block md:hidden text-base">
+              {locale === "ar"
+                ? "نحمي حقوقكم بنزاهة وتفان"
+                : "Protecting your rights with integrity"}
+            </span>
+            {/* Desktop: Full subtitle */}
+            <span className="hidden md:block text-lg md:text-2xl">
+              {locale === "ar"
+                ? "خدمات قانونية مهنية بنزاهة وتفان لحماية حقوقكم وتحقيق العدالة"
+                : "Professional legal services with integrity and dedication to protect your rights and achieve justice"}
+            </span>
           </motion.p>
 
           {/* Contact Info */}
           <motion.div
-            className="flex flex-col items-center gap-6 mb-12"
+            className="flex flex-col items-center gap-6 mb-8 md:mb-12"
             variants={itemVariants}
           >
             <motion.div
@@ -184,123 +222,68 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Stats Section - Floating Cards */}
+          {/* Stats Section - Mobile: Minimal horizontal badges, Desktop: Floating Cards */}
+
+          {/* Mobile Stats - Minimal Horizontal Scroll */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 max-w-5xl mx-auto px-4"
+            className="md:hidden flex justify-center gap-3 flex-wrap max-w-sm mx-auto"
             variants={statsContainerVariants}
           >
-            <motion.div
-              className="group relative"
-              variants={statsVariants}
-              whileHover={{
-                scale: 1.05,
-                transition: { type: "spring", stiffness: 400, damping: 17 },
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 rounded-xl sm:rounded-2xl blur-lg sm:blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 text-center hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-                <motion.div
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-accent mb-1 sm:mb-2 font-serif"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.8,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                >
-                  15+
-                </motion.div>
-                <div className=" text-white text-xs sm:text-sm font-medium leading-tight">
-                  {locale === "ar" ? "سنوات خبرة" : "Years Experience"}
+            {statsData.map((stat, index) => (
+              <motion.div
+                key={index}
+                className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-3.5 py-1.5"
+                variants={statsVariants}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: stat.delay, duration: 0.4 }}
+              >
+                <span className="text-accent font-semibold text-sm tracking-tight">
+                  {stat.value}
+                </span>
+                <span className="text-white/80 text-xs">
+                  {locale === "ar" ? stat.labelAr : stat.labelEn}
+                </span>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Desktop Stats - Floating Cards Grid */}
+          <motion.div
+            className="hidden md:grid md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto px-4"
+            variants={statsContainerVariants}
+          >
+            {statsData.map((stat, index) => (
+              <motion.div
+                key={index}
+                className="group relative"
+                variants={statsVariants}
+                whileHover={{
+                  scale: 1.05,
+                  transition: { type: "spring", stiffness: 400, damping: 17 },
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+                <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 md:p-6 text-center hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                  <motion.div
+                    className="text-2xl md:text-3xl lg:text-4xl font-bold text-accent mb-2 font-serif"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: stat.delay,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                  >
+                    {stat.value}
+                  </motion.div>
+                  <div className="text-white text-sm font-medium leading-tight">
+                    {locale === "ar" ? stat.labelAr : stat.labelEn}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-            <motion.div
-              className="group relative"
-              variants={statsVariants}
-              whileHover={{
-                scale: 1.05,
-                transition: { type: "spring", stiffness: 400, damping: 17 },
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 rounded-xl sm:rounded-2xl blur-lg sm:blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 text-center hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-                <motion.div
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-accent mb-1 sm:mb-2 font-serif"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.9,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                >
-                  500+
-                </motion.div>
-                <div className=" text-white text-xs sm:text-sm font-medium leading-tight">
-                  {locale === "ar" ? "عميل راضي" : "Happy Clients"}
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              className="group relative"
-              variants={statsVariants}
-              whileHover={{
-                scale: 1.05,
-                transition: { type: "spring", stiffness: 400, damping: 17 },
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 rounded-xl sm:rounded-2xl blur-lg sm:blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 text-center hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-                <motion.div
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-accent mb-1 sm:mb-2 font-serif"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 1.0,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                >
-                  95%
-                </motion.div>
-                <div className=" text-white text-xs sm:text-sm font-medium leading-tight">
-                  {locale === "ar" ? "معدل النجاح" : "Success Rate"}
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              className="group relative"
-              variants={statsVariants}
-              whileHover={{
-                scale: 1.05,
-                transition: { type: "spring", stiffness: 400, damping: 17 },
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 rounded-xl sm:rounded-2xl blur-lg sm:blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 text-center hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-                <motion.div
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-accent mb-1 sm:mb-2 font-serif"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 1.1,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                >
-                  24/7
-                </motion.div>
-                <div className=" text-white text-xs sm:text-sm font-medium leading-tight">
-                  {locale === "ar" ? "دعم متاح" : "Support Available"}
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </motion.div>

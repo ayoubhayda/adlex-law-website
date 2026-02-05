@@ -1,36 +1,44 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale-context"
-import { getTranslation } from "@/lib/i18n"
-import Image from "next/image"
-import darkLogo from "@/assets/logos/dark-logo-icon.png"
-import lightLogo from "@/assets/logos/light-logo-icon.png"
-import { motion } from "framer-motion"
+import Link from "next/link";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
+import { useLocale } from "@/hooks/use-locale-context";
+import { getTranslation } from "@/lib/i18n";
+import Image from "next/image";
+import darkLogo from "@/assets/logos/dark-logo-icon.png";
+import lightLogo from "@/assets/logos/light-logo-icon.png";
+import { motion } from "framer-motion";
 
 export function Footer() {
-  const { locale } = useLocale()
-  const currentYear = new Date().getFullYear()
+  const { locale } = useLocale();
+  const currentYear = new Date().getFullYear();
 
   const quickLinks = [
     { name: getTranslation(locale, "home"), href: "/" },
     { name: getTranslation(locale, "about"), href: "/about" },
     { name: getTranslation(locale, "services"), href: "/services" },
     { name: getTranslation(locale, "contact"), href: "/contact" },
-  ]
+  ];
 
   const legalLinks = [
     { name: getTranslation(locale, "privacyPolicy"), href: "/privacy" },
     { name: getTranslation(locale, "termsOfService"), href: "/terms" },
-  ]
+  ];
 
   const socialLinks = [
     { name: "Facebook", href: "#", icon: Facebook },
     { name: "Twitter", href: "#", icon: Twitter },
     { name: "LinkedIn", href: "#", icon: Linkedin },
     { name: "Instagram", href: "#", icon: Instagram },
-  ]
+  ];
 
   // Animation variants
   const containerVariants = {
@@ -42,7 +50,7 @@ export function Footer() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -53,7 +61,7 @@ export function Footer() {
         duration: 0.5,
       },
     },
-  }
+  };
 
   const logoVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -62,10 +70,9 @@ export function Footer() {
       scale: 1,
       transition: {
         duration: 0.6,
-        
       },
     },
-  }
+  };
 
   const linkVariants = {
     rest: { x: 0 },
@@ -75,7 +82,7 @@ export function Footer() {
         duration: 0.2,
       },
     },
-  }
+  };
 
   const socialIconVariants = {
     rest: { scale: 1, rotate: 0 },
@@ -86,7 +93,7 @@ export function Footer() {
         duration: 0.2,
       },
     },
-  }
+  };
 
   const contactItemVariants = {
     hidden: { opacity: 0, x: -10 },
@@ -97,7 +104,7 @@ export function Footer() {
         duration: 0.4,
       },
     },
-  }
+  };
 
   return (
     <footer className="bg-[#060a12] text-white">
@@ -161,7 +168,7 @@ export function Footer() {
                 </div>
               )}
             </motion.div>
-            
+
             <motion.p
               className="text-white/80 mb-4 md:mb-6 max-w-md mx-auto md:mx-0 leading-relaxed text-sm md:text-base"
               variants={itemVariants}
@@ -183,7 +190,13 @@ export function Footer() {
                 transition={{ duration: 0.2 }}
               >
                 <Phone className="h-4 w-4 text-accent" />
-                <span className="text-sm" dir="ltr" style={{textAlign: locale === "ar" ? "right" : "left"}}>+966 50 123 4567</span>
+                <span
+                  className="text-sm"
+                  dir="ltr"
+                  style={{ textAlign: locale === "ar" ? "right" : "left" }}
+                >
+                  +966 50 123 4567
+                </span>
               </motion.div>
               <motion.div
                 className="flex items-center gap-3 rtl:space-x-reverse"
@@ -202,7 +215,9 @@ export function Footer() {
               >
                 <MapPin className="h-4 w-4 text-accent" />
                 <span className="text-sm">
-                  {locale === "ar" ? "الرياض، المملكة العربية السعودية" : "Riyadh, Saudi Arabia"}
+                  {locale === "ar"
+                    ? "الرياض، المملكة العربية السعودية"
+                    : "Riyadh, Saudi Arabia"}
                 </span>
               </motion.div>
             </motion.div>
@@ -276,7 +291,7 @@ export function Footer() {
                 variants={containerVariants}
               >
                 {socialLinks.map((social) => {
-                  const Icon = social.icon
+                  const Icon = social.icon;
                   return (
                     <motion.div
                       key={social.name}
@@ -292,7 +307,7 @@ export function Footer() {
                         <span className="sr-only">{social.name}</span>
                       </Link>
                     </motion.div>
-                  )
+                  );
                 })}
               </motion.div>
             </motion.div>
@@ -311,7 +326,7 @@ export function Footer() {
               variants={containerVariants}
             >
               {socialLinks.map((social) => {
-                const Icon = social.icon
+                const Icon = social.icon;
                 return (
                   <motion.div
                     key={social.name}
@@ -327,7 +342,7 @@ export function Footer() {
                       <span className="sr-only">{social.name}</span>
                     </Link>
                   </motion.div>
-                )
+                );
               })}
             </motion.div>
           </motion.div>
@@ -348,5 +363,5 @@ export function Footer() {
         </motion.div>
       </motion.div>
     </footer>
-  )
+  );
 }

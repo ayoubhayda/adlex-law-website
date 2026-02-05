@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale-context"
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { useLocale } from "@/hooks/use-locale-context";
 
 interface Testimonial {
-  id: number
-  name: string
-  nameAr: string
-  role: string
-  roleAr: string
-  content: string
-  contentAr: string
-  rating: number
+  id: number;
+  name: string;
+  nameAr: string;
+  role: string;
+  roleAr: string;
+  content: string;
+  contentAr: string;
+  rating: number;
 }
 
 const testimonials: Testimonial[] = [
@@ -25,8 +25,10 @@ const testimonials: Testimonial[] = [
     nameAr: "أحمد الراشد",
     role: "Business Owner",
     roleAr: "صاحب شركة",
-    content: "Exceptional legal service with great attention to detail. Highly professional and trustworthy.",
-    contentAr: "خدمة قانونية استثنائية مع اهتمام كبير بالتفاصيل. مهني جداً وجدير بالثقة.",
+    content:
+      "Exceptional legal service with great attention to detail. Highly professional and trustworthy.",
+    contentAr:
+      "خدمة قانونية استثنائية مع اهتمام كبير بالتفاصيل. مهني جداً وجدير بالثقة.",
     rating: 5,
   },
   {
@@ -35,8 +37,10 @@ const testimonials: Testimonial[] = [
     nameAr: "سارة جونسون",
     role: "Real Estate Investor",
     roleAr: "مستثمرة عقارية",
-    content: "Outstanding expertise in real estate law. Made the complex process simple and stress-free.",
-    contentAr: "خبرة متميزة في قانون العقارات. جعل العملية المعقدة بسيطة وخالية من التوتر.",
+    content:
+      "Outstanding expertise in real estate law. Made the complex process simple and stress-free.",
+    contentAr:
+      "خبرة متميزة في قانون العقارات. جعل العملية المعقدة بسيطة وخالية من التوتر.",
     rating: 5,
   },
   {
@@ -45,36 +49,40 @@ const testimonials: Testimonial[] = [
     nameAr: "محمد الفهد",
     role: "Family Client",
     roleAr: "عميل أسري",
-    content: "Compassionate and skilled representation during a difficult time. Truly grateful for the support.",
+    content:
+      "Compassionate and skilled representation during a difficult time. Truly grateful for the support.",
     contentAr: "تمثيل رحيم وماهر خلال وقت صعب. ممتن حقاً للدعم المقدم.",
     rating: 5,
   },
-]
+];
 
 export function TestimonialCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const { locale } = useLocale()
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const { locale } = useLocale();
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
-    }, 5000)
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    }, 5000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
-  }
+    setCurrentIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + testimonials.length) % testimonials.length,
+    );
+  };
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
-  }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+  };
 
-  const currentTestimonial = testimonials[currentIndex]
+  const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <motion.div 
+    <motion.div
       className="relative max-w-4xl mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -91,7 +99,7 @@ export function TestimonialCarousel() {
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {/* Stars */}
-              <motion.div 
+              <motion.div
                 className="flex justify-center mb-6"
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -102,11 +110,11 @@ export function TestimonialCarousel() {
                     key={i}
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
-                    transition={{ 
-                      duration: 0.3, 
+                    transition={{
+                      duration: 0.3,
                       delay: 0.2 + i * 0.1,
                       type: "spring",
-                      stiffness: 200 
+                      stiffness: 200,
                     }}
                   >
                     <Star className="h-5 w-5 text-accent fill-current" />
@@ -115,27 +123,35 @@ export function TestimonialCarousel() {
               </motion.div>
 
               {/* Testimonial Content */}
-              <motion.blockquote 
+              <motion.blockquote
                 className="text-lg text-foreground mb-6 leading-relaxed italic"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                "{locale === "ar" ? currentTestimonial.contentAr : currentTestimonial.content}"
+                "
+                {locale === "ar"
+                  ? currentTestimonial.contentAr
+                  : currentTestimonial.content}
+                "
               </motion.blockquote>
 
               {/* Author */}
-              <motion.div 
+              <motion.div
                 className="text-center"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.4 }}
               >
                 <p className="font-semibold text-foreground">
-                  {locale === "ar" ? currentTestimonial.nameAr : currentTestimonial.name}
+                  {locale === "ar"
+                    ? currentTestimonial.nameAr
+                    : currentTestimonial.name}
                 </p>
                 <p className="text-muted-foreground text-sm">
-                  {locale === "ar" ? currentTestimonial.roleAr : currentTestimonial.role}
+                  {locale === "ar"
+                    ? currentTestimonial.roleAr
+                    : currentTestimonial.role}
                 </p>
               </motion.div>
             </motion.div>
@@ -148,6 +164,7 @@ export function TestimonialCarousel() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
+        className="hidden md:block"
       >
         <Button
           variant="outline"
@@ -163,6 +180,7 @@ export function TestimonialCarousel() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
+        className="hidden md:block"
       >
         <Button
           variant="outline"
@@ -175,7 +193,7 @@ export function TestimonialCarousel() {
       </motion.div>
 
       {/* Dots Indicator */}
-      <motion.div 
+      <motion.div
         className="flex justify-center mt-6 space-x-2"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -198,5 +216,5 @@ export function TestimonialCarousel() {
         ))}
       </motion.div>
     </motion.div>
-  )
+  );
 }

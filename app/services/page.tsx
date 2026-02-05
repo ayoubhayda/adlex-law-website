@@ -1,11 +1,17 @@
-"use client"
+"use client";
 
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { WhatsAppButton } from "@/components/whatsapp-button"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { WhatsAppButton } from "@/components/whatsapp-button";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Users,
   Home,
@@ -17,50 +23,50 @@ import {
   ArrowRight,
   ArrowLeft,
   Phone,
-} from "lucide-react"
-import { useLocale } from "@/hooks/use-locale-context"
-import { getTranslation } from "@/lib/i18n"
-import { useConsultationModal } from "@/hooks/use-consultation-modal"
-import { FreeConsultationModelButton } from "@/components/free-consultation-model-button"
-import { ConsultationModal } from "@/components/consultation-modal"
-import { motion } from "framer-motion"
+} from "lucide-react";
+import { useLocale } from "@/hooks/use-locale-context";
+import { getTranslation } from "@/lib/i18n";
+import { useConsultationModal } from "@/hooks/use-consultation-modal";
+import { FreeConsultationModelButton } from "@/components/free-consultation-model-button";
+import { ConsultationModal } from "@/components/consultation-modal";
+import { motion } from "framer-motion";
 
 export default function ServicesPage() {
-  const { locale } = useLocale()
+  const { locale } = useLocale();
   const { isOpen, openModal, closeModal } = useConsultationModal();
-  const ArrowIcon = locale === "ar" ? ArrowLeft : ArrowRight
+  const ArrowIcon = locale === "ar" ? ArrowLeft : ArrowRight;
 
   // Animation variants
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" },
   };
 
   const fadeInLeft = {
     initial: { opacity: 0, x: -60 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" },
   };
 
   const fadeInRight = {
     initial: { opacity: 0, x: 60 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" },
   };
 
   const staggerContainer = {
     animate: {
       transition: {
-        staggerChildren: 0.15
-      }
-    }
+        staggerChildren: 0.15,
+      },
+    },
   };
 
   const scaleIn = {
     initial: { opacity: 0, scale: 0.8 },
     animate: { opacity: 1, scale: 1 },
-    transition: { duration: 0.5, ease: "easeOut" }
+    transition: { duration: 0.5, ease: "easeOut" },
   };
 
   const services = [
@@ -154,39 +160,52 @@ export default function ServicesPage() {
       ],
       slug: "litigation-arbitration",
     },
-  ]
+  ];
 
   const processSteps = [
     {
       step: "01",
       title: locale === "ar" ? "الاستشارة الأولية" : "Initial Consultation",
-      description: locale === "ar" ? "نبدأ بفهم احتياجاتكم القانونية" : "We start by understanding your legal needs",
+      description:
+        locale === "ar"
+          ? "نبدأ بفهم احتياجاتكم القانونية"
+          : "We start by understanding your legal needs",
     },
     {
       step: "02",
       title: locale === "ar" ? "تحليل القضية" : "Case Analysis",
-      description: locale === "ar" ? "دراسة شاملة للوضع القانوني" : "Comprehensive study of the legal situation",
+      description:
+        locale === "ar"
+          ? "دراسة شاملة للوضع القانوني"
+          : "Comprehensive study of the legal situation",
     },
     {
       step: "03",
       title: locale === "ar" ? "وضع الاستراتيجية" : "Strategy Development",
-      description: locale === "ar" ? "تطوير خطة عمل قانونية مخصصة" : "Developing a customized legal action plan",
+      description:
+        locale === "ar"
+          ? "تطوير خطة عمل قانونية مخصصة"
+          : "Developing a customized legal action plan",
     },
     {
       step: "04",
-      title: locale === "ar" ? "التنفيذ والمتابعة" : "Implementation & Follow-up",
-      description: locale === "ar" ? "تنفيذ الخطة ومتابعة النتائج" : "Implementing the plan and monitoring results",
+      title:
+        locale === "ar" ? "التنفيذ والمتابعة" : "Implementation & Follow-up",
+      description:
+        locale === "ar"
+          ? "تنفيذ الخطة ومتابعة النتائج"
+          : "Implementing the plan and monitoring results",
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
         {/* Hero Section  */}
-        <section className="relative py-20 text-white overflow-hidden">
+        <section className="relative py-12 md:py-20 text-white overflow-hidden">
           {/* Background Image */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0"
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
@@ -200,20 +219,20 @@ export default function ServicesPage() {
             <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
           </motion.div>
-          
+
           {/* Content */}
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg"
+              <motion.h1
+                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-6 font-serif text-balance drop-shadow-lg"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 {getTranslation(locale, "servicesTitle")}
               </motion.h1>
-              <motion.p 
-                className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md"
+              <motion.p
+                className="text-sm sm:text-base md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md px-2 md:px-0"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -227,10 +246,10 @@ export default function ServicesPage() {
         </section>
 
         {/* Services Grid */}
-        <section className="py-20">
+        <section className="py-10 md:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8"
               variants={staggerContainer}
               initial="initial"
               whileInView="animate"
@@ -245,28 +264,30 @@ export default function ServicesPage() {
                 >
                   <Card className="group transition-all duration-300 hover:-translate-y-2 border-border hover:border-accent/50 flex flex-col h-full">
                     <CardHeader className="text-center pb-4">
-                      <motion.div 
-                        className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300"
+                      <motion.div
+                        className="mx-auto mb-3 md:mb-4 flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300"
                         whileHover={{ scale: 1.1, rotate: 360 }}
                         transition={{ duration: 0.6 }}
                       >
-                        <service.icon className="h-8 w-8 text-accent" />
+                        <service.icon className="h-6 w-6 md:h-8 md:w-8 text-accent" />
                       </motion.div>
-                      <CardTitle className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors duration-300">
+                      <CardTitle className="text-base md:text-xl font-semibold text-foreground group-hover:text-accent transition-colors duration-300">
                         {service.title}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="flex flex-col justify-between flex-1 space-y-6">
                       <div className="space-y-6">
-                        <CardDescription className="text-muted-foreground leading-relaxed">
+                        <CardDescription className="text-muted-foreground leading-relaxed text-xs md:text-sm">
                           {service.description}
                         </CardDescription>
-                         
+
                         <div className="space-y-3">
-                          <h4 className="font-semibold text-foreground text-sm">
-                            {locale === "ar" ? "الخدمات المشمولة:" : "Services Included:"}
+                          <h4 className="font-semibold text-foreground text-xs md:text-sm">
+                            {locale === "ar"
+                              ? "الخدمات المشمولة:"
+                              : "Services Included:"}
                           </h4>
-                          <motion.ul 
+                          <motion.ul
                             className="space-y-2"
                             variants={staggerContainer}
                             initial="initial"
@@ -274,12 +295,12 @@ export default function ServicesPage() {
                             viewport={{ once: true }}
                           >
                             {service.features.map((feature, featureIndex) => (
-                              <motion.li 
-                                key={featureIndex} 
-                                className="flex items-center gap-2 text-sm text-muted-foreground"
+                              <motion.li
+                                key={featureIndex}
+                                className="flex items-center gap-2 text-xs text-muted-foreground"
                                 variants={{
                                   initial: { opacity: 0, x: -20 },
-                                  animate: { opacity: 1, x: 0 }
+                                  animate: { opacity: 1, x: 0 },
                                 }}
                                 transition={{ duration: 0.3 }}
                               >
@@ -290,13 +311,16 @@ export default function ServicesPage() {
                           </motion.ul>
                         </div>
                       </div>
-                      
+
                       <motion.div
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         <Button className="w-full bg-accent text-white hover:bg-accent/90 group/btn mt-auto">
-                          <a href={`/services/${service.slug}`} className="flex items-center justify-center w-full">
+                          <a
+                            href={`/services/${service.slug}`}
+                            className="flex items-center justify-center w-full"
+                          >
                             {locale === "ar" ? "اعرف المزيد" : "Learn More"}
                             <ArrowIcon className="ms-2 h-4 w-4 group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform duration-200" />
                           </a>
@@ -311,9 +335,9 @@ export default function ServicesPage() {
         </section>
 
         {/* Process Section */}
-        <section className="py-24 bg-gradient-to-br from-muted/30 via-background to-muted/20 relative overflow-hidden">
+        <section className="py-12 md:py-24 bg-gradient-to-br from-muted/30 via-background to-muted/20 relative overflow-hidden">
           {/* Background Decoration */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0 opacity-5"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 0.05 }}
@@ -323,10 +347,10 @@ export default function ServicesPage() {
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary rounded-full blur-3xl" />
           </motion.div>
-          
+
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-            <motion.div 
-              className="text-center mb-20"
+            <motion.div
+              className="text-center mb-8 md:mb-20"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -335,13 +359,15 @@ export default function ServicesPage() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
                 <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 <span className="text-sm font-medium text-accent">
-                  {locale === "ar" ? "منهجية عمل متميزة" : "Distinguished Work Methodology"}
+                  {locale === "ar"
+                    ? "منهجية عمل متميزة"
+                    : "Distinguished Work Methodology"}
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 font-serif text-balance">
+              <h2 className="text-xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-6 font-serif text-balance">
                 {locale === "ar" ? "كيف نعمل" : "How We Work"}
               </h2>
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed text-pretty">
+              <p className="text-sm md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed text-pretty px-2 md:px-0">
                 {locale === "ar"
                   ? "عملية عمل منظمة ومدروسة لضمان تحقيق أفضل النتائج لعملائنا"
                   : "An organized and well-studied work process to ensure achieving the best results for our clients"}
@@ -350,7 +376,7 @@ export default function ServicesPage() {
 
             <div className="relative">
               {/* Enhanced Timeline Line */}
-              <motion.div 
+              <motion.div
                 className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-accent/30 via-accent/60 to-accent/30 hidden lg:block"
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
@@ -360,7 +386,7 @@ export default function ServicesPage() {
               />
               <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-accent/20 hidden lg:block" />
 
-              <div className="space-y-6 lg:space-y-20">
+              <div className="space-y-4 md:space-y-6 lg:space-y-20">
                 {processSteps.map((step, index) => (
                   <motion.div
                     key={index}
@@ -379,40 +405,46 @@ export default function ServicesPage() {
                       } text-center lg:text-inherit`}
                     >
                       <Card className="group-hover:shadow-2xl group-hover:shadow-accent/10 transition-all duration-500 hover:-translate-y-2 border-border hover:border-accent/40 bg-background/80 backdrop-blur-sm">
-                        <CardContent className="p-8">
-                          <div className={`flex items-start gap-6 mb-6 ${
-                            index % 2 === 0 ? "lg:flex-row-reverse" : "lg:flex-row-reverse"
-                          } flex-row`}>
+                        <CardContent className="p-4 md:p-8">
+                          <div
+                            className={`flex items-start gap-3 md:gap-6 mb-3 md:mb-6 ${
+                              index % 2 === 0
+                                ? "lg:flex-row-reverse"
+                                : "lg:flex-row-reverse"
+                            } flex-row`}
+                          >
                             {/* Icon Container */}
-                            <motion.div 
+                            <motion.div
                               className="relative"
                               whileHover={{ scale: 1.1 }}
                               transition={{ type: "spring", stiffness: 300 }}
                             >
-                              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 group-hover:from-accent/20 group-hover:to-accent/10 transition-all duration-300">
-                                <div className="text-2xl font-bold text-accent group-hover:scale-110 transition-transform duration-300">
+                              <div className="flex h-10 w-10 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 group-hover:from-accent/20 group-hover:to-accent/10 transition-all duration-300">
+                                <div className="text-base md:text-2xl font-bold text-accent group-hover:scale-110 transition-transform duration-300">
                                   {step.step}
                                 </div>
                               </div>
                               {/* Glow effect */}
                               <div className="absolute inset-0 rounded-2xl bg-accent/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </motion.div>
-                            
+
                             {/* Content */}
                             <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-3">
-                                <Badge 
-                                  variant="outline" 
-                                  className="text-accent border-accent/50 bg-accent/5 hover:bg-accent/10 transition-colors duration-300 font-medium"
+                              <div className="flex items-center gap-2 md:gap-3 mb-1 md:mb-3">
+                                <Badge
+                                  variant="outline"
+                                  className="text-accent border-accent/50 bg-accent/5 hover:bg-accent/10 transition-colors duration-300 font-medium text-xs md:text-sm"
                                 >
-                                  {locale === "ar" ? `الخطوة ${step.step}` : `Step ${step.step}`}
+                                  {locale === "ar"
+                                    ? `الخطوة ${step.step}`
+                                    : `Step ${step.step}`}
                                 </Badge>
                                 <div className="h-px bg-gradient-to-r from-accent/50 to-transparent flex-1 hidden lg:block" />
                               </div>
-                              <h3 className="text-2xl font-bold text-foreground text-start mb-3 group-hover:text-accent transition-colors duration-300">
+                              <h3 className="text-base md:text-2xl font-bold text-foreground text-start mb-1 md:mb-3 group-hover:text-accent transition-colors duration-300">
                                 {step.title}
                               </h3>
-                              <p className="text-muted-foreground leading-relaxed text-start text-lg">
+                              <p className="text-muted-foreground leading-relaxed text-start text-xs md:text-lg">
                                 {step.description}
                               </p>
                             </div>
@@ -422,7 +454,7 @@ export default function ServicesPage() {
                     </div>
 
                     {/* Enhanced Timeline Dot */}
-                    <motion.div 
+                    <motion.div
                       className="relative z-20 items-center justify-center hidden lg:flex"
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
@@ -448,7 +480,7 @@ export default function ServicesPage() {
               </div>
 
               {/* Timeline End Decoration */}
-              <motion.div 
+              <motion.div
                 className="absolute left-1/2 transform -translate-x-1/2 -bottom-8 hidden lg:flex"
                 initial={{ opacity: 0, scale: 0 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -464,7 +496,7 @@ export default function ServicesPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-[#060a12] text-white relative overflow-hidden">
+        <section className="py-12 md:py-20 bg-[#060a12] text-white relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div
@@ -474,22 +506,22 @@ export default function ServicesPage() {
               }}
             />
           </div>
-          <motion.div 
+          <motion.div
             className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-6 font-serif text-balance">
               {locale === "ar" ? "جاهز للبدء؟" : "Ready to Get Started?"}
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty">
+            <p className="text-sm md:text-xl text-white/90 mb-5 md:mb-8 max-w-3xl mx-auto leading-relaxed text-pretty px-2 md:px-0">
               {locale === "ar"
                 ? "تواصل معنا اليوم للحصول على استشارة قانونية مجانية ومناقشة احتياجاتكم"
                 : "Contact us today for a free legal consultation and discuss your needs"}
             </p>
-            <motion.div 
+            <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={staggerContainer}
               initial="initial"
@@ -521,5 +553,5 @@ export default function ServicesPage() {
       <Footer />
       <WhatsAppButton />
     </div>
-  )
+  );
 }

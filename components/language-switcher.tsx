@@ -1,41 +1,44 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Languages, Check } from "lucide-react"
-import { useLocale } from "@/hooks/use-locale-context"
-import type { Locale } from "@/lib/i18n"
-import { cn } from "@/lib/utils"
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Languages, Check } from "lucide-react";
+import { useLocale } from "@/hooks/use-locale-context";
+import type { Locale } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
 export function LanguageSwitcher() {
-  const { locale, switchLocale, isLoaded } = useLocale()
-  const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const { locale, switchLocale, isLoaded } = useLocale();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const languages = [
     { code: "en" as Locale, name: "English", flag: "🇺🇸" },
     { code: "ar" as Locale, name: "العربية", flag: "🇸🇦" },
-  ]
+  ];
 
-  const currentLanguage = languages.find(lang => lang.code === locale)
+  const currentLanguage = languages.find((lang) => lang.code === locale);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLanguageSelect = (newLocale: Locale) => {
-    switchLocale(newLocale)
-    setIsOpen(false)
-  }
+    switchLocale(newLocale);
+    setIsOpen(false);
+  };
 
   // Don't render until locale is loaded to prevent hydration mismatch
   if (!isLoaded) {
@@ -48,7 +51,7 @@ export function LanguageSwitcher() {
         <Languages className="h-4 w-4" />
         <span className="sr-only">Select language</span>
       </Button>
-    )
+    );
   }
 
   return (
@@ -71,7 +74,7 @@ export function LanguageSwitcher() {
                 onClick={() => handleLanguageSelect(language.code)}
                 className={cn(
                   "w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-accent/10 transition-colors",
-                  locale === language.code && "bg-accent/5"
+                  locale === language.code && "bg-accent/5",
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -87,5 +90,5 @@ export function LanguageSwitcher() {
         </div>
       )}
     </div>
-  )
+  );
 }

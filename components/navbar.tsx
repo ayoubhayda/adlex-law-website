@@ -68,7 +68,7 @@ export function Navbar() {
                 </div>
 
                 {locale === "ar" ? (
-                  <div className="flex flex-col mt-1">
+                  <div className="hidden sm:flex flex-col mt-1">
                     <span className="text-xl lg:text-2xl font-bold text-foreground tracking-tight leading-none font-serif">
                       أديـ<span className="text-accent">كـس</span>
                     </span>
@@ -77,7 +77,7 @@ export function Navbar() {
                     </span>
                   </div>
                 ) : (
-                  <div className="flex flex-col">
+                  <div className="hidden sm:flex flex-col">
                     <span
                       className="text-xl lg:text-2xl font-bold text-foreground tracking-widest leading-none uppercase"
                       style={{ fontFamily: "Orbitron, monospace" }}
@@ -103,7 +103,7 @@ export function Navbar() {
                       "px-3 py-2 text-sm font-medium transition-colors duration-200",
                       isActiveRoute(item.href)
                         ? "text-accent font-semibold"
-                        : "text-foreground/70 hover:text-foreground"
+                        : "text-foreground/70 hover:text-foreground",
                     )}
                   >
                     {item.name}
@@ -155,7 +155,7 @@ export function Navbar() {
                       "block px-4 py-3 text-base font-medium transition-colors duration-200 rounded-md",
                       isActiveRoute(item.href)
                         ? "text-accent font-semibold bg-accent/5"
-                        : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
+                        : "text-foreground/70 hover:text-foreground hover:bg-muted/50",
                     )}
                     onClick={() => setIsOpen(false)}
                   >

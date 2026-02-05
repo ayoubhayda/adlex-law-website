@@ -28,33 +28,33 @@ export default function AboutPage() {
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" },
   };
 
   const fadeInLeft = {
     initial: { opacity: 0, x: -60 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" },
   };
 
   const fadeInRight = {
     initial: { opacity: 0, x: 60 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" },
   };
 
   const staggerContainer = {
     animate: {
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const scaleIn = {
     initial: { opacity: 0, scale: 0.8 },
     animate: { opacity: 1, scale: 1 },
-    transition: { duration: 0.5, ease: "easeOut" }
+    transition: { duration: 0.5, ease: "easeOut" },
   };
 
   const milestones = [
@@ -149,9 +149,9 @@ export default function AboutPage() {
       <Navbar />
       <main>
         {/* Hero Section */}
-        <section className="relative py-20 text-white overflow-hidden">
+        <section className="relative py-12 md:py-20 text-white overflow-hidden">
           {/* Background Image */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0"
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
@@ -169,16 +169,16 @@ export default function AboutPage() {
           {/* Content */}
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif text-balance drop-shadow-lg"
+              <motion.h1
+                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-6 font-serif text-balance drop-shadow-lg"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 {getTranslation(locale, "aboutTitle")}
               </motion.h1>
-              <motion.p 
-                className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md"
+              <motion.p
+                className="text-sm sm:text-base md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed text-pretty drop-shadow-md px-2 md:px-0"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -192,10 +192,10 @@ export default function AboutPage() {
         </section>
 
         {/* Main About Content */}
-        <section className="py-20">
+        <section className="py-10 md:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20 ${
+              className={`grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center mb-10 md:mb-20 ${
                 locale === "ar" ? "lg:grid-flow-col-dense" : ""
               }`}
             >
@@ -209,11 +209,11 @@ export default function AboutPage() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
-                <div className="relative overflow-hidden rounded-3xl">
+                <div className="relative overflow-hidden rounded-2xl md:rounded-3xl">
                   <motion.img
                     src="/professional-lawyer-portrait.webp"
                     alt="Professional Lawyer"
-                    className="w-full h-[600px] object-cover object-top"
+                    className="w-full h-[320px] md:h-[600px] object-cover object-top"
                     initial={{ scale: 1.1 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
@@ -254,7 +254,7 @@ export default function AboutPage() {
 
               {/* Content Side */}
               <motion.div
-                className={`space-y-8 ${
+                className={`space-y-4 md:space-y-8 ${
                   locale === "ar" ? "lg:col-start-1" : ""
                 }`}
                 initial={{ opacity: 0, x: locale === "ar" ? -60 : 60 }}
@@ -271,15 +271,15 @@ export default function AboutPage() {
                   >
                     <Badge
                       variant="secondary"
-                      className="mb-4 bg-accent/10 text-accent"
+                      className="mb-2 md:mb-4 bg-accent/10 text-accent text-xs md:text-sm"
                     >
                       {locale === "ar"
                         ? "المحامي المتميز"
                         : "Premium Legal Expert"}
                     </Badge>
                   </motion.div>
-                  <motion.h2 
-                    className="text-3xl md:text-4xl font-bold text-foreground mb-6 font-serif text-balance"
+                  <motion.h2
+                    className="text-xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-6 font-serif text-balance"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -289,8 +289,8 @@ export default function AboutPage() {
                       ? "خبرة قانونية متميزة"
                       : "Distinguished Legal Expertise"}
                   </motion.h2>
-                  <motion.p 
-                    className="text-lg text-muted-foreground leading-relaxed mb-6 text-pretty"
+                  <motion.p
+                    className="text-sm md:text-lg text-muted-foreground leading-relaxed mb-3 md:mb-6 text-pretty"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -300,8 +300,8 @@ export default function AboutPage() {
                       ? "بخبرة تزيد عن 15 عاماً في الممارسة القانونية، أقدم خدمات قانونية شاملة ومتخصصة في مختلف المجالات القانونية. حصلت على درجة البكالوريوس في الحقوق من جامعة الملك سعود بامتياز مع مرتبة الشرف، وأكملت دراساتي العليا في القانون التجاري الدولي."
                       : "With over 15 years of legal practice experience, I provide comprehensive and specialized legal services across various legal fields. I earned my Bachelor's degree in Law from King Saud University with honors, and completed my graduate studies in International Commercial Law."}
                   </motion.p>
-                  <motion.p 
-                    className="text-muted-foreground leading-relaxed mb-8"
+                  <motion.p
+                    className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4 md:mb-8 hidden md:block"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -314,8 +314,8 @@ export default function AboutPage() {
                 </div>
 
                 {/* Quick Stats */}
-                <motion.div 
-                  className="grid grid-cols-2 gap-6"
+                <motion.div
+                  className="grid grid-cols-2 gap-3 md:gap-6"
                   variants={staggerContainer}
                   initial="initial"
                   whileInView="animate"
@@ -324,12 +324,12 @@ export default function AboutPage() {
                   {achievements.slice(2).map((achievement, index) => (
                     <motion.div
                       key={index}
-                      className="text-center p-6 bg-muted/30 rounded-xl"
+                      className="text-center p-3 md:p-6 bg-muted/30 rounded-lg md:rounded-xl"
                       variants={scaleIn}
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <div className="text-3xl font-bold text-accent mb-2">
+                      <div className="text-xl md:text-3xl font-bold text-accent mb-1 md:mb-2">
                         {achievement.number}
                       </div>
                       <div className="text-sm text-muted-foreground">
@@ -344,9 +344,9 @@ export default function AboutPage() {
         </section>
 
         {/* Timeline Section */}
-        <section className="py-24 bg-gradient-to-br from-muted/30 via-background to-muted/20 relative overflow-hidden">
+        <section className="py-12 md:py-24 bg-gradient-to-br from-muted/30 via-background to-muted/20 relative overflow-hidden">
           {/* Background Decoration */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0 opacity-5"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 0.05 }}
@@ -358,25 +358,25 @@ export default function AboutPage() {
           </motion.div>
 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-            <motion.div 
-              className="text-center mb-20"
+            <motion.div
+              className="text-center mb-8 md:mb-20"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
+              <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-accent/10 border border-accent/20 mb-3 md:mb-6">
                 <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-accent">
+                <span className="text-xs md:text-sm font-medium text-accent">
                   {locale === "ar"
                     ? "مسيرة مهنية متميزة"
                     : "Distinguished Career Path"}
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 font-serif text-balance">
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-6 font-serif text-balance">
                 {locale === "ar" ? "مسيرة النجاح" : "Journey of Success"}
               </h2>
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed text-pretty">
+              <p className="text-sm md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed text-pretty px-2 md:px-0">
                 {locale === "ar"
                   ? "تعرف على أهم المحطات في مسيرتنا المهنية والإنجازات التي حققناها عبر السنين"
                   : "Discover the key milestones in our professional journey and the achievements we've accomplished over the years"}
@@ -385,7 +385,7 @@ export default function AboutPage() {
 
             <div className="relative">
               {/* Enhanced Timeline Line */}
-              <motion.div 
+              <motion.div
                 className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-accent/30 via-accent/60 to-accent/30 hidden lg:block"
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
@@ -395,7 +395,7 @@ export default function AboutPage() {
               />
               <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-accent/20 hidden lg:block" />
 
-              <div className="space-y-6 lg:space-y-20">
+              <div className="space-y-4 md:space-y-6 lg:space-y-20">
                 {milestones.map((milestone, index) => (
                   <motion.div
                     key={index}
@@ -414,22 +414,22 @@ export default function AboutPage() {
                       } text-center lg:text-inherit`}
                     >
                       <Card className="group-hover:shadow-2xl group-hover:shadow-accent/10 transition-all duration-500 hover:-translate-y-2 border-border hover:border-accent/40 bg-background/80 backdrop-blur-sm">
-                        <CardContent className="p-8">
+                        <CardContent className="p-4 md:p-8">
                           <div
-                            className={`flex items-start gap-6 mb-6 ${
+                            className={`flex items-start gap-3 md:gap-6 mb-3 md:mb-6 ${
                               index % 2 === 0
                                 ? "lg:flex-row-reverse"
                                 : "lg:flex-row-reverse"
                             } flex-row`}
                           >
                             {/* Icon Container */}
-                            <motion.div 
+                            <motion.div
                               className="relative"
                               whileHover={{ scale: 1.1 }}
                               transition={{ type: "spring", stiffness: 300 }}
                             >
-                              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 group-hover:from-accent/20 group-hover:to-accent/10 transition-all duration-300">
-                                <milestone.icon className="h-8 w-8 text-accent group-hover:scale-110 transition-transform duration-300" />
+                              <div className="flex h-10 w-10 md:h-16 md:w-16 items-center justify-center rounded-xl md:rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 group-hover:from-accent/20 group-hover:to-accent/10 transition-all duration-300">
+                                <milestone.icon className="h-5 w-5 md:h-8 md:w-8 text-accent group-hover:scale-110 transition-transform duration-300" />
                               </div>
                               {/* Glow effect */}
                               <div className="absolute inset-0 rounded-2xl bg-accent/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -437,19 +437,19 @@ export default function AboutPage() {
 
                             {/* Content */}
                             <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-3">
+                              <div className="flex items-center gap-2 md:gap-3 mb-1 md:mb-3">
                                 <Badge
                                   variant="outline"
-                                  className="text-accent border-accent/50 bg-accent/5 hover:bg-accent/10 transition-colors duration-300 font-medium"
+                                  className="text-accent border-accent/50 bg-accent/5 hover:bg-accent/10 transition-colors duration-300 font-medium text-xs md:text-sm"
                                 >
                                   {milestone.year}
                                 </Badge>
                                 <div className="h-px bg-gradient-to-r from-accent/50 to-transparent flex-1 hidden lg:block" />
                               </div>
-                              <h3 className="text-2xl font-bold text-foreground text-start mb-3 group-hover:text-accent transition-colors duration-300">
+                              <h3 className="text-base md:text-2xl font-bold text-foreground text-start mb-1 md:mb-3 group-hover:text-accent transition-colors duration-300">
                                 {milestone.title}
                               </h3>
-                              <p className="text-muted-foreground leading-relaxed text-start  text-lg">
+                              <p className="text-muted-foreground leading-relaxed text-start text-xs md:text-lg">
                                 {milestone.description}
                               </p>
                             </div>
@@ -459,7 +459,7 @@ export default function AboutPage() {
                     </div>
 
                     {/* Enhanced Timeline Dot */}
-                    <motion.div 
+                    <motion.div
                       className="relative z-20 items-center justify-center hidden lg:flex"
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
@@ -485,7 +485,7 @@ export default function AboutPage() {
               </div>
 
               {/* Timeline End Decoration */}
-              <motion.div 
+              <motion.div
                 className="absolute left-1/2 transform -translate-x-1/2 -bottom-8 hidden lg:flex"
                 initial={{ opacity: 0, scale: 0 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -501,27 +501,27 @@ export default function AboutPage() {
         </section>
 
         {/* Values Section */}
-        <section className="py-20">
+        <section className="py-12 md:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <motion.div 
-              className="text-center mb-16"
+            <motion.div
+              className="text-center mb-8 md:mb-16"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif text-balance">
+              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2 md:mb-4 font-serif text-balance">
                 {locale === "ar" ? "قيمنا الأساسية" : "Our Core Values"}
               </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
+              <p className="text-sm md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty px-2 md:px-0">
                 {locale === "ar"
                   ? "القيم التي نؤمن بها وتوجه عملنا في تقديم أفضل الخدمات القانونية"
                   : "The values we believe in and that guide our work in providing the best legal services"}
               </p>
             </motion.div>
 
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8"
               variants={staggerContainer}
               initial="initial"
               whileInView="animate"
@@ -535,18 +535,18 @@ export default function AboutPage() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-border hover:border-accent/50 h-full">
-                    <CardContent className="p-8 text-center">
-                      <motion.div 
-                        className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300"
+                    <CardContent className="p-3 md:p-8 text-center">
+                      <motion.div
+                        className="mx-auto mb-2 md:mb-6 flex h-10 w-10 md:h-16 md:w-16 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors duration-300"
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.6 }}
                       >
-                        <value.icon className="h-8 w-8 text-accent" />
+                        <value.icon className="h-5 w-5 md:h-8 md:w-8 text-accent" />
                       </motion.div>
-                      <h3 className="text-xl font-semibold text-foreground mb-4 group-hover:text-accent transition-colors duration-300">
+                      <h3 className="text-sm md:text-xl font-semibold text-foreground mb-1 md:mb-4 group-hover:text-accent transition-colors duration-300">
                         {value.title}
                       </h3>
-                      <p className="text-muted-foreground leading-relaxed text-sm">
+                      <p className="text-muted-foreground leading-relaxed text-xs md:text-sm hidden md:block">
                         {value.description}
                       </p>
                     </CardContent>
@@ -558,7 +558,7 @@ export default function AboutPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-[#060a12] text-white relative overflow-hidden">
+        <section className="py-12 md:py-20 bg-[#060a12] text-white relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div
@@ -568,19 +568,19 @@ export default function AboutPage() {
               }}
             />
           </div>
-          <motion.div 
+          <motion.div
             className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-balance">
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-6 font-serif text-balance">
               {locale === "ar"
                 ? "هل تحتاج إلى استشارة قانونية؟"
                 : "Need Legal Consultation?"}
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed text-pretty">
+            <p className="text-sm md:text-xl text-white/90 mb-5 md:mb-8 max-w-3xl mx-auto leading-relaxed text-pretty px-2 md:px-0">
               {locale === "ar"
                 ? "تواصل معنا اليوم للحصول على استشارة قانونية مهنية ومتخصصة"
                 : "Contact us today for professional and specialized legal consultation"}
